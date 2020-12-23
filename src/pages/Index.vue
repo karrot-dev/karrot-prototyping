@@ -9,47 +9,39 @@
       >
         <q-step
           :name="1"
-          title="Select campaign settings"
-          icon="settings"
+          title="Vision"
+          caption="Mandatory"
+          icon="emoji_objects"
           :done="step > 1"
         >
-          For each ad campaign that you create, you can control how much you're willing to
-          spend on clicks and conversions, which networks and geographical locations you want
-          your ads to show on, and more.
+          What is your group's vision?
+          <q-input v-model="vision" autogrow filled placeholder="What do you want to achieve? This information will also be made public." hint="Markdown ..." />
         </q-step>
 
         <q-step
           :name="2"
-          title="Create an ad group"
+          title="Decision-making"
           caption="Optional"
-          icon="create_new_folder"
+          icon="thumbs_up_down"
           :done="step > 2"
         >
-          An ad group contains one or more ads which target a shared set of keywords.
+          How does your group make decisions?
+          <q-input v-model="governance" filled autogrow placeholder="In other words, what is the governance structure of your group?" hint="Markdown ..." />
         </q-step>
 
         <q-step
           :name="3"
-          title="Ad template"
-          icon="assignment"
-          :done="step > 3"
+          title="General Agreement"
+          caption="Optional"
+          icon="fas fa-handshake"
         >
-          This step won't show up because it is disabled.
-        </q-step>
-
-        <q-step
-          :name="4"
-          title="Create an ad"
-          icon="add_comment"
-        >
-          Try out different ad text to see what brings in the most customers, and learn how to
-          enhance your ads using features like ad extensions. If you run into any problems with
-          your ads, find out how to tell if they're running and how to resolve approval issues.
+          You can propose an agreement to all future members of your group. Your agreement proposal will be pending until other two trusted members approve it.
+          <q-input v-model="agreement" filled autogrow placeholder="What should everybody agree to in order to join this group?" hint="Markdown ...." />
         </q-step>
 
         <template v-slot:navigation>
           <q-stepper-navigation>
-            <q-btn @click="$refs.stepper.next()" color="primary" :label="step === 4 ? 'Finish' : 'Continue'" />
+            <q-btn @click="$refs.stepper.next()" color="primary" :label="step === 3 ? 'Finish' : 'Continue'" :disable="vision === ''"/>
             <q-btn v-if="step > 1" flat color="primary" @click="$refs.stepper.previous()" label="Back" class="q-ml-sm" />
           </q-stepper-navigation>
         </template>
@@ -63,7 +55,10 @@ export default {
   name: 'PageIndex',
   data () {
     return {
-      step: 1
+      step: 1,
+      vision: '',
+      governance: '',
+      agreement: ''
     }
   }
 }
