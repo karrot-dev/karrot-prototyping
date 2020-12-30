@@ -14,8 +14,14 @@
           icon="emoji_objects"
           :done="step > 1"
         >
-          What is your group's vision?
-          <q-input v-model="vision" autogrow filled placeholder="What do you want to achieve? This information will also be made public." hint="Markdown ..." />
+          <p class="text-h5">What is your group's vision?</p>
+          <q-input
+            v-model="vision"
+            autogrow
+            filled
+            placeholder="What do you want to achieve? This information will also be made public."
+            hint="Markdown ..."
+          />
         </q-step>
 
         <q-step
@@ -25,8 +31,14 @@
           icon="thumbs_up_down"
           :done="step > 2"
         >
-          How does your group make decisions?
-          <q-input v-model="governance" filled autogrow placeholder="In other words, what is the governance structure of your group?" hint="Markdown ..." />
+          <p class="text-h5">How does your group make decisions?</p>
+          <q-input
+            v-model="governance"
+            filled
+            autogrow
+            placeholder="In other words, what is the governance structure of your group?"
+            hint="Markdown ..."
+          />
         </q-step>
 
         <q-step
@@ -35,8 +47,14 @@
           caption="Optional"
           icon="fas fa-handshake"
         >
-          You can propose an agreement to all future members of your group. Your agreement proposal will be pending until other two trusted members approve it.
-          <q-input v-model="agreement" filled autogrow placeholder="What should everybody agree to in order to join this group?" hint="Markdown ...." />
+          <p class="text-h5">You can propose an agreement to all future members of your group. Your agreement proposal will be pending until other two trusted members approve it.</p>
+          <q-input
+            v-model="agreement"
+            filled
+            autogrow
+            placeholder="What should everybody agree to in order to join this group?"
+            hint="Markdown ...."
+          />
         </q-step>
 
         <template v-slot:navigation>
