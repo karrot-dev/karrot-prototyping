@@ -12,7 +12,7 @@
           title="Vision"
           caption="Mandatory"
           icon="emoji_objects"
-          :done="step > 1"
+          :done="Boolean(vision)"
         >
           <p class="text-h5">What is your group's vision?</p>
           <q-input
@@ -29,7 +29,7 @@
           title="Decision-making"
           caption="Optional"
           icon="thumbs_up_down"
-          :done="step > 2"
+          :done="Boolean(governance)"
         >
           <p class="text-h5">How does your group make decisions?</p>
           <q-input
@@ -46,8 +46,10 @@
           title="General Agreement"
           caption="Optional"
           icon="fas fa-handshake"
+          :done="Boolean(agreement)"
         >
-          <p class="text-h5">You can propose an agreement to all future members of your group. Your agreement proposal will be pending until other two trusted members approve it.</p>
+          <p class="text-h5">You can propose an agreement to all future members of your group.</p>
+          <p>Your agreement proposal will be pending until other two trusted members approve it.</p>
           <q-input
             v-model="agreement"
             filled
