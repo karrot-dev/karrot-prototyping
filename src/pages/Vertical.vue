@@ -24,7 +24,7 @@
             </template>
           </div>
 
-          <template v-if="enableVision">
+          <template>
             <div>
               <q-separator class="q-mt-lg q-mb-lg" />
               <q-toggle
@@ -59,7 +59,7 @@
             </div>
           </template>
 
-          <template v-if="enableVision">
+          <template>
             <div>
               <q-separator class="q-mt-lg q-mb-lg" />
               <q-toggle
@@ -70,7 +70,7 @@
                 <p class="text-bold q-mt-md">You can propose an agreement to all future members of your group.</p>
                 <p>Your agreement proposal will be pending until other two trusted members approve it.</p>
                 <q-input
-                  v-model="agreement"
+                  v-model="agreements"
                   filled
                   autogrow
                   placeholder="What should everybody agree to in order to join this group?"
@@ -79,6 +79,13 @@
               </template>
             </div>
           </template>
+        </q-card-section>
+        <q-card-section>
+          <q-btn
+            color="primary"
+            label="Done"
+            to=community
+          />
         </q-card-section>
       </q-card>
     </div>
