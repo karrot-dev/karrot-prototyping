@@ -1,5 +1,18 @@
 <template>
     <div class="q-pa-lg">
+      <div class="text-h6">Vision</div>
+      <q-field stack-label>
+        <template v-slot:control>
+          <div class="self-center full-width no-outline" tabindex="0">Whatever you wrote will be displayed here.</div>
+        </template>
+      </q-field>
+      <div class="text-h6">Decision-making</div>
+      <q-field stack-label>
+        <template v-slot:control>
+          <div class="self-center full-width no-outline" tabindex="0">Whatever you wrote will be displayed here.</div>
+        </template>
+      </q-field>
+      <div class="text-h6">Agreements</div>
       <q-field stack-label>
         <template v-slot:control>
           <div class="self-center full-width no-outline" tabindex="0">Whatever you wrote will be displayed here.</div>
