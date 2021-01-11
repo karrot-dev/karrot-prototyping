@@ -18,18 +18,37 @@
 
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="agreements">
-            <div class="text-h4">Main Agreement</div>
-            Whatever you wrote in the previous section will be displayed here
-            <div class="text-h5">Other agreements</div>
-            Here you can add other agreements
+            <div class="text-h4 q-mb-sm">Main Agreement</div>
+            <q-field filled>
+              <template v-slot:control>
+                <div class="self-center full-width no-outline">Whatever you wrote in the previous section would be displayed here.</div>
+              </template>
+            </q-field>
+            <div class="text-h5 q-mt-lg q-mb-sm">Other agreements</div>
+            <q-field filled>
+              <template v-slot:control>
+                <div class="self-center full-width no-outline">Here you can see other agreements.</div>
+              </template>
+            </q-field>
+            <template>
+              <q-btn class="q-mt-lg" round color="primary" icon="fa fa-plus" />
+            </template>
           </q-tab-panel>
+
           <q-tab-panel name="vision">
-            <div class="text-h4">Vision</div>
-            Whatever you wrote in the previous section will be displayed here
+            <q-field filled>
+              <template v-slot:control>
+                <div class="self-center full-width no-outline">Whatever you wrote in the previous section would be displayed here.</div>
+              </template>
+            </q-field>
           </q-tab-panel>
+
           <q-tab-panel name="decision-making">
-            <div class="text-h4">Decision-making</div>
-            Whatever you wrote in the previous section will be displayed here
+            <q-field filled>
+              <template v-slot:control>
+                <div class="self-center full-width no-outline">Whatever you wrote in the previous section would be displayed here.</div>
+              </template>
+            </q-field>
           </q-tab-panel>
         </q-tab-panels>
       </q-page>
