@@ -18,7 +18,12 @@
 
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="agreements">
-            <div class="text-h4 q-mb-sm">Main Agreement</div>
+            <div class="q-my-sm">
+              <div class="float-right">
+                <q-btn fab-mini color="primary" icon="fas fa-pencil-alt" />
+              </div>
+              <div class="text-h4">Main Agreement</div>
+            </div>
             <q-field filled>
               <template v-slot:control>
                 <div class="self-center full-width no-outline">Whatever you wrote in the previous section would be displayed here.</div>
@@ -28,6 +33,11 @@
             <q-field filled>
               <template v-slot:control>
                 <div class="self-center full-width no-outline">Here you can see other agreements.</div>
+              </template>
+            </q-field>
+            <q-field filled label="Pending" stack-label bg-color="secondary">
+              <template v-slot:control>
+                <div class="self-center full-width no-outline">Here you can see a pending agreement.</div>
               </template>
             </q-field>
             <template>

@@ -14,12 +14,13 @@
             />
             <template v-if="enableVision">
               <p class="text-bold q-mt-md">What is your group's vision?</p>
+              <p>What do you want to achieve? This information will be made public.</p>
               <q-input
                 v-model="vision"
-                autogrow
                 filled
-                placeholder="What do you want to achieve? This information will also be made public."
-                hint="Markdown ..."
+                placeholder="Example: We want to rescue surplus food and provide individuals and businesses in our local community with knowledge, tools and power to act, care and share/donate food, without any compromise."
+                autogrow
+                hint="Markdown..."
               />
             </template>
           </div>
@@ -52,7 +53,7 @@
                   v-model="governance"
                   filled
                   autogrow
-                  placeholder="In other words, what is the governance structure of your group?"
+                  placeholder="Example: we use the consensus model to make big decisions, but we apply a do-ocracy model for smaller decisions. If consensus can't be reached, we use majority voting as a last resort"
                   hint="Markdown ..."
                 />
               </template>
@@ -64,16 +65,16 @@
               <q-separator class="q-mt-lg q-mb-lg" />
               <q-toggle
                 v-model="enableAgreements"
-                label="Do you have any agreements to add?"
+                label="Do you have an agreement to add?"
               />
               <template v-if="enableAgreements">
-                <p class="text-bold q-mt-md">You can propose an agreement to all future members of your group.</p>
+                <p class="text-bold q-mt-md">You can propose a general agreement to all future members of your group.</p>
                 <p>Your agreement proposal will be pending until other two trusted members approve it.</p>
                 <q-input
                   v-model="agreements"
                   filled
                   autogrow
-                  placeholder="What should everybody agree to in order to join this group?"
+                  placeholder="What should everybody agree to in order to join and stay in this group?"
                   hint="Markdown ...."
                 />
               </template>
