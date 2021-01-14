@@ -53,7 +53,7 @@
                 />
                 -->
 
-                <div class="q-mb-md">
+                <div class="q-mb-md row">
                   <q-btn
                     v-for="type in decisionMakingTypes"
                     :key="type.value"
@@ -64,6 +64,14 @@
                     :class="selectedDecisionMakingTypes.includes(type.value) ? 'bg-primary text-white' : ''"
                     :label="type.label"
                   />
+                  <q-space/>
+                  <q-btn
+                    flat
+                    @click="showDecisionMakingHelp = true"
+                    label="What do these mean?"
+                    icon-right="fas fa-info"
+                    color="blue"
+                  />
                 </div>
 
                 <q-input
@@ -73,6 +81,28 @@
                   placeholder="Example: we use the consensus model to make big decisions, but we apply a do-ocracy model for smaller decisions. If consensus can't be reached, we use majority voting as a last resort"
                   hint="Markdown ..."
                 />
+
+                <q-dialog v-model="showDecisionMakingHelp">
+                  <q-card>
+                    <q-card-section>
+                      <div class="text-h5">Decision making approaches</div>
+                    </q-card-section>
+
+                    <q-card-section
+                      v-for="type in decisionMakingTypes"
+                      :key="type.value"
+                      class="q-pt-none"
+                    >
+                      <div class="text-h6">{{ type.label }}</div>
+                      <p>{{ type.description }}</p>
+                    </q-card-section>
+
+                    <q-card-actions align="right">
+                      <q-btn flat label="OK" color="primary" v-close-popup />
+                    </q-card-actions>
+                  </q-card>
+                </q-dialog>
+
               </template>
             </div>
           </template>
@@ -96,10 +126,6 @@
                   hint="Markdown ...."
                 />
               </template>
-              <!--
-              class="q-btn q-btn-item non-selectable no-outline q-btn--unelevated q-btn--rectangle q-btn--actionable q-focusable q-hoverable q-btn--wrap"
-              class="q-btn q-btn-item non-selectable no-outline q-btn--unelevated q-btn--rectangle bg-primary text-white q-btn--actionable q-focusable q-hoverable q-btn--wrap"
-              -->
             </div>
           </template>
         </q-card-section>
@@ -128,11 +154,24 @@ export default {
       governance: '',
       governanceType: 'unspecified',
       decisionMakingTypes: [
-        { label: 'Do-ocracy', value: 'doocracy' },
-        { label: 'Consensus', value: 'consensus' },
-        { label: 'Majority', value: 'majority' }
+        {
+          label: 'Do-ocracy',
+          value: 'doocracy',
+          description: 'Just do stuff, be cool!'
+        },
+        {
+          label: 'Consensus',
+          value: 'consensus',
+          description: 'Discuss forever, never do anything'
+        },
+        {
+          label: 'Majority',
+          value: 'majority',
+          description: 'White men get to decide everything'
+        }
       ],
       selectedDecisionMakingTypes: [],
+      showDecisionMakingHelp: false,
       enableAgreements: !useToggles,
       agreements: ''
     }
