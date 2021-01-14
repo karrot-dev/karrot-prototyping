@@ -3,17 +3,12 @@
     <q-page-container>
       <q-tabs>
         <q-route-tab
-          label="horizontal stepper"
-          to="/"
-          exact
-        />
-        <q-route-tab
-          label="vertical style"
+          label="edit view"
           to="/vertical"
           exact
         />
         <q-route-tab
-          label="community"
+          label="community view"
           to="/community"
           exact
         />
