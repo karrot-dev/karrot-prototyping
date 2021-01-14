@@ -20,22 +20,22 @@
           <q-tab-panel name="agreements">
             <div class="q-my-sm">
               <div class="float-right">
-                <q-btn fab-mini color="primary" icon="fas fa-pencil-alt" />
+                <q-btn fab-mini color="primary" icon="fas fa-comments" />
               </div>
               <div class="text-h4">Main Agreement</div>
             </div>
-            <q-field filled>
+            <q-field filled hint="Last updated 23-01-2018">
               <template v-slot:control>
                 <div class="self-center full-width no-outline">Whatever you wrote in the previous section would be displayed here.</div>
               </template>
             </q-field>
             <div class="text-h5 q-mt-lg q-mb-sm">Other agreements</div>
-            <q-field filled>
+            <q-field filled hint="Last updated dd-mm-yyyy">
               <template v-slot:control>
                 <div class="self-center full-width no-outline">Here you can see other agreements.</div>
               </template>
             </q-field>
-            <q-field filled label="Pending" stack-label bg-color="secondary">
+            <q-field class="q-mt-lg" filled label="Pending" hint="Last updated dd-mm-yyyy" stack-label bg-color="secondary">
               <template v-slot:control>
                 <div class="self-center full-width no-outline">Here you can see a pending agreement.</div>
               </template>
@@ -46,11 +46,14 @@
           </q-tab-panel>
 
           <q-tab-panel name="vision">
-            <q-field filled>
+            <q-field filled hint="Last updated 15-06-2019">
               <template v-slot:control>
                 <div class="self-center full-width no-outline">Whatever you wrote in the previous section would be displayed here.</div>
               </template>
             </q-field>
+             <div class="q-mt-md">
+                <q-btn fab-mini color="primary" label="Edit Vision" icon="fas fa-pencil-alt" />
+             </div>
           </q-tab-panel>
 
           <q-tab-panel name="decision-making">
