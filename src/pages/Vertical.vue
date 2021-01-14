@@ -9,6 +9,7 @@
         <q-card-section>
           <div>
             <q-toggle
+              v-if="useToggles"
               v-model="enableVision"
               label="Does your group has a vision?"
             />
@@ -29,6 +30,7 @@
             <div>
               <q-separator class="q-mt-lg q-mb-lg" />
               <q-toggle
+                v-if="useToggles"
                 v-model="enableGovernance"
                 label="Specify how you make decisions?"
               />
@@ -64,6 +66,7 @@
             <div>
               <q-separator class="q-mt-lg q-mb-lg" />
               <q-toggle
+                v-if="useToggles"
                 v-model="enableAgreements"
                 label="Do you have an agreement to add?"
               />
@@ -97,13 +100,15 @@
 export default {
   name: 'PageIndex',
   data () {
+    const useToggles = false
     return {
-      enableVision: false,
+      useToggles,
+      enableVision: !useToggles,
       vision: '',
-      enableGovernance: false,
+      enableGovernance: !useToggles,
       governance: '',
       governanceType: 'unspecified',
-      enableAgreements: false,
+      enableAgreements: !useToggles,
       agreements: ''
     }
   }
