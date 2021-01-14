@@ -12,6 +12,11 @@
           to="/vertical"
           exact
         />
+        <q-route-tab
+          label="community"
+          to="/community"
+          exact
+        />
       </q-tabs>
       <router-view />
     </q-page-container>
