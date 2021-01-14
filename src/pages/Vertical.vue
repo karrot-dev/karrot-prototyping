@@ -37,6 +37,7 @@
               <template v-if="enableGovernance">
                 <p class="text-bold q-mt-md">How does your group make decisions?</p>
 
+                <!--
                 <q-btn-toggle
                   v-model="governanceType"
                   toggle-color="primary"
@@ -50,6 +51,20 @@
                   ]"
                   class="q-mb-md"
                 />
+                -->
+
+                <div class="q-mb-md">
+                  <q-btn
+                    v-for="type in decisionMakingTypes"
+                    :key="type.value"
+                    unelevated
+                    rounded
+                    @click="toggleDecisionMakingType(type.value)"
+                    class="q-mr-sm"
+                    :class="selectedDecisionMakingTypes.includes(type.value) ? 'bg-primary text-white' : ''"
+                    :label="type.label"
+                  />
+                </div>
 
                 <q-input
                   v-model="governance"
@@ -81,6 +96,10 @@
                   hint="Markdown ...."
                 />
               </template>
+              <!--
+              class="q-btn q-btn-item non-selectable no-outline q-btn--unelevated q-btn--rectangle q-btn--actionable q-focusable q-hoverable q-btn--wrap"
+              class="q-btn q-btn-item non-selectable no-outline q-btn--unelevated q-btn--rectangle bg-primary text-white q-btn--actionable q-focusable q-hoverable q-btn--wrap"
+              -->
             </div>
           </template>
         </q-card-section>
@@ -108,8 +127,24 @@ export default {
       enableGovernance: !useToggles,
       governance: '',
       governanceType: 'unspecified',
+      decisionMakingTypes: [
+        { label: 'Do-ocracy', value: 'doocracy' },
+        { label: 'Consensus', value: 'consensus' },
+        { label: 'Majority', value: 'majority' }
+      ],
+      selectedDecisionMakingTypes: [],
       enableAgreements: !useToggles,
       agreements: ''
+    }
+  },
+  methods: {
+    toggleDecisionMakingType (value) {
+      const idx = this.selectedDecisionMakingTypes.indexOf(value)
+      if (idx !== -1) {
+        this.selectedDecisionMakingTypes.splice(idx, 1)
+      } else {
+        this.selectedDecisionMakingTypes.push(value)
+      }
     }
   }
 }
