@@ -29,12 +29,13 @@
                 <div class="self-center full-width no-outline">Whatever you wrote in the previous section would be displayed here.</div>
               </template>
             </q-field>
-            <div class="text-h5 q-mt-lg q-mb-sm">Another agreement title</div>
+            <div class="text-h5 q-mt-lg q-mb-sm">Title</div>
             <q-field filled hint="Last updated dd-mm-yyyy">
               <template v-slot:control>
                 <div class="self-center full-width no-outline">Text for another agreement.</div>
               </template>
             </q-field>
+            <div class="text-h5 q-mt-lg q-mb-sm">Title</div>
             <q-field class="q-mt-lg" filled label="Pending" hint="Last updated dd-mm-yyyy" stack-label bg-color="secondary">
               <template v-slot:control>
                 <div class="self-center full-width no-outline">Here you can see a pending agreement.</div>
