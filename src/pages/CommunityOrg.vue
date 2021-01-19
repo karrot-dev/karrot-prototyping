@@ -49,7 +49,9 @@
           <q-tab-panel name="vision">
             <q-field filled hint="Last updated 15-06-2019">
               <template v-slot:control>
-                <div class="self-center full-width no-outline">Whatever you wrote in the previous section would be displayed here.</div>
+                <div class="self-center full-width no-outline">
+                  {{ $root.$data.vision }}
+                </div>
               </template>
             </q-field>
              <div class="q-mt-md">

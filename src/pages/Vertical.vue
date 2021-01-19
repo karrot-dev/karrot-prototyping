@@ -17,7 +17,7 @@
               <p class="text-bold q-mt-md">What is your group's vision?</p>
               <p>What do you want to achieve? This information will be made public.</p>
               <q-input
-                v-model="vision"
+                v-model="$root.$data.vision"
                 filled
                 placeholder="Example: We want to rescue surplus food and provide individuals and businesses in our local community with knowledge, tools and power to act, care and share/donate food, without any compromise."
                 autogrow
