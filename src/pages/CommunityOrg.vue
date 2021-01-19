@@ -22,17 +22,17 @@
               <div class="float-right">
                 <q-btn fab-mini color="primary" icon="fas fa-comments" />
               </div>
-              <div class="text-h4">Main Agreement</div>
+              <div class="text-h5">Title of agreement</div>
             </div>
             <q-field filled hint="Last updated 23-01-2018">
               <template v-slot:control>
                 <div class="self-center full-width no-outline">Whatever you wrote in the previous section would be displayed here.</div>
               </template>
             </q-field>
-            <div class="text-h5 q-mt-lg q-mb-sm">Other agreements</div>
+            <div class="text-h5 q-mt-lg q-mb-sm">Another agreement title</div>
             <q-field filled hint="Last updated dd-mm-yyyy">
               <template v-slot:control>
-                <div class="self-center full-width no-outline">Here you can see other agreements.</div>
+                <div class="self-center full-width no-outline">Text for another agreement.</div>
               </template>
             </q-field>
             <q-field class="q-mt-lg" filled label="Pending" hint="Last updated dd-mm-yyyy" stack-label bg-color="secondary">
