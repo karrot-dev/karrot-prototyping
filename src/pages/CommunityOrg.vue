@@ -26,13 +26,17 @@
             </div>
             <q-field filled hint="Last updated 23-01-2018">
               <template v-slot:control>
-                <div class="self-center full-width no-outline">Whatever you wrote in the previous section would be displayed here.</div>
+                <div class="self-center full-width no-outline">
+                  {{ $root.$data.agreement }}
+                </div>
               </template>
             </q-field>
             <div class="text-h5 q-mt-lg q-mb-sm">Title</div>
             <q-field filled hint="Last updated dd-mm-yyyy">
               <template v-slot:control>
-                <div class="self-center full-width no-outline">Text for another agreement.</div>
+                <div class="self-center full-width no-outline">
+                  Text for another agreement.
+                </div>
               </template>
             </q-field>
             <div class="text-h5 q-mt-lg q-mb-sm">Title</div>
@@ -62,7 +66,9 @@
           <q-tab-panel name="decision-making">
             <q-field filled>
               <template v-slot:control>
-                <div class="self-center full-width no-outline">Whatever you wrote in the previous section would be displayed here.</div>
+                <div class="self-center full-width no-outline">
+                  {{ $root.$data.governance }}
+                </div>
               </template>
             </q-field>
           </q-tab-panel>

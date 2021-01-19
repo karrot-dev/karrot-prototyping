@@ -28,7 +28,7 @@
 
           <template>
             <div>
-              <q-separator class="q-mt-lg q-mb-lg" />
+              <q-separator class="q-my-lg" />
               <q-toggle
                 v-if="useToggles"
                 v-model="enableGovernance"
@@ -75,7 +75,7 @@
                 </div>
 
                 <q-input
-                  v-model="governance"
+                  v-model="$root.$data.governance"
                   filled
                   autogrow
                   placeholder="Example: we use the consensus model to make big decisions, but we apply a do-ocracy model for smaller decisions. If consensus can't be reached, we use majority voting as a last resort"
@@ -109,7 +109,7 @@
 
           <template>
             <div>
-              <q-separator class="q-mt-lg q-mb-lg" />
+              <q-separator class="q-my-lg" />
               <q-toggle
                 v-if="useToggles"
                 v-model="enableAgreements"
@@ -119,7 +119,7 @@
                 <p class="text-bold q-mt-md">You can propose a general agreement to all future members of your group.</p>
                 <p>Your agreement proposal will be pending until other two trusted members approve it.</p>
                 <q-input
-                  v-model="agreements"
+                  v-model="$root.$data.agreement"
                   filled
                   autogrow
                   placeholder="What should everybody agree to in order to join and stay in this group?"
@@ -149,9 +149,7 @@ export default {
     return {
       useToggles,
       enableVision: !useToggles,
-      vision: '',
       enableGovernance: !useToggles,
-      governance: '',
       governanceType: 'unspecified',
       decisionMakingTypes: [
         {
@@ -172,8 +170,7 @@ export default {
       ],
       selectedDecisionMakingTypes: [],
       showDecisionMakingHelp: false,
-      enableAgreements: !useToggles,
-      agreements: ''
+      enableAgreements: !useToggles
     }
   },
   methods: {

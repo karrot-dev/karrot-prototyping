@@ -1,5 +1,7 @@
 export default ({ app }) => {
   app.data = {
-    vision: ''
+    governance: '',
+    vision: '',
+    agreement: ''
   }
 }
