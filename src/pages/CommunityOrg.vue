@@ -19,21 +19,23 @@
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="agreements">
             <q-card class="q-pa-md">
+              <q-badge floating color="primary" align="right" label="Pending" />
               <div class="text-h5">Title of agreement</div>
               <q-card-section>
-                <q-field label="Summary" filled hint="Proposed 23-01-2018" stack-label>
+                <q-field label="Summary" filled stack-label>
                   <template v-slot:control>
                     <div class="self-center full-width no-outline">
-                      {{ group.agreement }}
+                      {{ group.agreements }}
                     </div>
                   </template>
                 </q-field>
+                <div class="q-mt-sm">
+                  <q-chip dense color="secondary">Sharing is Caring</q-chip>
+                  <q-chip dense color="secondary">Sustainability</q-chip>
+                </div>
               </q-card-section>
               <q-card-section class="q-pa-sm">
-                <div>
-                  <q-btn label="Tag" color="secondary" />
-                  <q-btn label="Show details" color="primary" />
-                </div>
+                <q-btn label="Show details" color="primary" />
               </q-card-section>
             </q-card>
 
