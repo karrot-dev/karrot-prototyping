@@ -5,6 +5,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
+      { path: 'group-wizard', component: () => import('pages/GroupWizard.vue') },
       { path: 'vertical', component: () => import('pages/Vertical.vue') },
       { path: 'community', component: () => import('pages/CommunityOrg.vue') }
     ]

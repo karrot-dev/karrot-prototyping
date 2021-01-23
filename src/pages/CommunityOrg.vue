@@ -27,7 +27,7 @@
             <q-field filled hint="Last updated 23-01-2018">
               <template v-slot:control>
                 <div class="self-center full-width no-outline">
-                  {{ $root.$data.agreement }}
+                  {{ group.agreements }}
                 </div>
               </template>
             </q-field>
@@ -54,7 +54,7 @@
             <q-field filled hint="Last updated 15-06-2019">
               <template v-slot:control>
                 <div class="self-center full-width no-outline">
-                  {{ $root.$data.vision }}
+                  {{ group.vision }}
                 </div>
               </template>
             </q-field>
@@ -67,7 +67,7 @@
             <q-field filled>
               <template v-slot:control>
                 <div class="self-center full-width no-outline">
-                  {{ $root.$data.governance }}
+                  {{ group.governanceDescription }}
                 </div>
               </template>
             </q-field>
@@ -82,7 +82,8 @@
 export default {
   data () {
     return {
-      tab: 'agreements'
+      tab: 'agreements',
+      group: this.$root.$data.group
     }
   }
 }
