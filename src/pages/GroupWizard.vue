@@ -130,3 +130,18 @@ export default {
   }
 }
 </script>
+
+<style>
+/* override the colour for the "done" state
+   otherwise it's blue and looks the same as the active one */
+/* ... the icon + the text */
+.q-stepper__tab--done {
+  color: #2e7d32;
+}
+/* ... just the icon */
+/*
+.q-stepper__tab--done .q-stepper__dot {
+  color: #2e7d32;
+}
+*/
+</style>
