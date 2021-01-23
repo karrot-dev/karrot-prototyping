@@ -80,7 +80,7 @@
         <p class="text-bold q-mt-md">You can propose a general agreement to all future members of your group.</p>
         <p>Your agreement proposal will be pending until other two trusted members approve it.</p>
         <q-input
-          v-model="$root.$data.agreement"
+          v-model="group.agreements"
           filled
           autogrow
           placeholder="What should everybody agree to in order to join and stay in this group?"
