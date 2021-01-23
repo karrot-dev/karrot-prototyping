@@ -18,19 +18,25 @@
 
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="agreements">
-            <div class="q-my-sm">
-              <div class="float-right">
-                <q-btn fab-mini color="primary" icon="fas fa-comments" />
-              </div>
+            <q-card class="q-pa-md">
               <div class="text-h5">Title of agreement</div>
-            </div>
-            <q-field filled hint="Last updated 23-01-2018">
-              <template v-slot:control>
-                <div class="self-center full-width no-outline">
-                  {{ group.agreements }}
+              <q-card-section>
+                <q-field label="Summary" filled hint="Proposed 23-01-2018" stack-label>
+                  <template v-slot:control>
+                    <div class="self-center full-width no-outline">
+                      {{ group.agreement }}
+                    </div>
+                  </template>
+                </q-field>
+              </q-card-section>
+              <q-card-section class="q-pa-sm">
+                <div>
+                  <q-btn label="Tag" color="secondary" />
+                  <q-btn label="Show details" color="primary" />
                 </div>
-              </template>
-            </q-field>
+              </q-card-section>
+            </q-card>
+
             <div class="text-h5 q-mt-lg q-mb-sm">Title</div>
             <q-field filled hint="Last updated dd-mm-yyyy">
               <template v-slot:control>
@@ -59,7 +65,12 @@
               </template>
             </q-field>
              <div class="q-mt-md">
-                <q-btn fab-mini color="primary" label="Edit Vision" icon="fas fa-pencil-alt" />
+                <q-btn
+                  to="/vertical"
+                  fab-mini color="primary"
+                  label="Edit Vision"
+                  icon="fas fa-pencil-alt"
+                />
              </div>
           </q-tab-panel>
 
