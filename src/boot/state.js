@@ -30,6 +30,22 @@ export function initialData () {
           content: 'The agreement itself 2',
           tags: []
         }
+      ],
+      pendingAgreements: [
+        {
+          title: 'A proposal',
+          reason: 'A reason to change the agreement',
+          summary: 'Propose a summary 1',
+          content: 'The agreement with some changes 1',
+          tags: []
+        },
+        {
+          title: 'Another proposal',
+          reason: 'A reason to change the agreement 2',
+          summary: 'Propose a summary 2',
+          content: 'The agreement with some changes 2',
+          tags: []
+        }
       ]
 
       // not part of it at the moment...
