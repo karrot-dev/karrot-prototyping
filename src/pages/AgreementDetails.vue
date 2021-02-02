@@ -4,12 +4,12 @@
       <q-page class="flex-center">
         <div class="text-h4">Agreement Details</div>
           <q-card
-            class="q-pa-md"
+            class="q-pa-md q-my-md"
             v-for="agreement in group.agreements"
             :key="agreement.title"
           >
             <q-badge
-              floating color="primary"
+              floating color="positive"
               align="right"
               label="Approved dd-mm-yyyy"
             />
@@ -49,24 +49,25 @@
               </q-field>
 
             <div class="q-mt-sm">
-                <q-chip
-                  dense
-                  color="secondary"
-                >
+                <q-chip color="secondary">
                 Sharing is Caring
                 </q-chip>
-                <q-chip
-                  dense
-                  color="secondary"
-                >
+                <q-chip color="secondary">
                 Sustainability
                 </q-chip>
               </div>
             </q-card-section>
 
             <q-card-section class="q-pa-sm">
-              <q-btn class="q-mr-md" label="Show History" color="primary" />
-              <q-btn label="Propose change" color="primary" />
+              <q-btn
+                class="q-mr-md"
+                label="Show History"
+                color="primary"
+              />
+              <q-btn
+                label="Propose change"
+                color="primary"
+              />
             </q-card-section>
           </q-card>
       </q-page>

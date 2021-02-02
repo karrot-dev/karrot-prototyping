@@ -19,12 +19,21 @@
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="agreements">
             <q-card
-              class="q-pa-md"
+              class="q-pa-md q-my-md"
               v-for="agreement in group.agreements"
               :key="agreement.title"
             >
-              <q-badge floating color="primary" align="right" label="Pending" />
-              <div class="text-h5">Title of agreement</div>
+              <q-card-section class="justify-between" horizontal>
+                <div class="text-h5">Title of agreement</div>
+                <q-chip
+                  clickable
+                  icon-right="fa fa-history"
+                  color="info"
+                >
+                  Proposed dd-mm-yyyy
+                </q-chip>
+              </q-card-section>
+
               <q-card-section>
                 <q-field label="Summary" filled stack-label>
                   <template v-slot:control>
@@ -34,14 +43,16 @@
                   </template>
                 </q-field>
                 <div class="q-mt-sm">
-                  <q-chip dense color="secondary">Sharing is Caring</q-chip>
-                  <q-chip dense color="secondary">Sustainability</q-chip>
+                  <q-chip color="secondary">Sharing is Caring</q-chip>
+                  <q-chip color="secondary">Sustainability</q-chip>
                 </div>
               </q-card-section>
+
               <q-card-section class="q-pa-sm">
                 <q-btn label="Show details" color="primary" to=agreement-details />
               </q-card-section>
             </q-card>
+
             <template>
               <q-btn class="q-mt-lg" round color="primary" icon="fa fa-plus" />
             </template>
