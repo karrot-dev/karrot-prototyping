@@ -17,7 +17,20 @@ export function initialData () {
       vision: '',
       governanceTypes: [],
       governanceDescription: '',
-      agreements: []
+      agreements: [
+        {
+          title: 'This a title 1',
+          summary: 'Summary for an agreement 1',
+          content: 'The agreement itself 1',
+          tags: []
+        },
+        {
+          title: 'This a title 2',
+          summary: 'Summary for an agreement 2',
+          content: 'The agreement itself 2',
+          tags: []
+        }
+      ]
 
       // not part of it at the moment...
       // theme: '',

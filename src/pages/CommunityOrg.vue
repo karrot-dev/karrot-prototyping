@@ -18,14 +18,19 @@
 
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="agreements">
-            <q-card class="q-pa-md">
+            <pre>{{ group.agreements }}</pre>
+            <q-card
+              class="q-pa-md"
+              v-for="agreement in group.agreements"
+              :key="agreement.title"
+            >
               <q-badge floating color="primary" align="right" label="Pending" />
               <div class="text-h5">Title of agreement</div>
               <q-card-section>
                 <q-field label="Summary" filled stack-label>
                   <template v-slot:control>
                     <div class="self-center full-width no-outline">
-                      {{ group.agreements }}
+                      {{ agreement.summary }}
                     </div>
                   </template>
                 </q-field>
