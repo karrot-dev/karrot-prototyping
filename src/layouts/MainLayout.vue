@@ -17,6 +17,11 @@
           to="/community"
           exact
         />
+        <q-route-tab
+          label="agreement proposal"
+          to="/agreements/proposal"
+          exact
+        />
       </q-tabs>
       <q-btn
         class="fixed-top-right"
