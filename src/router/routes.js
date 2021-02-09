@@ -8,7 +8,8 @@ const routes = [
       { path: 'group-wizard', component: () => import('pages/GroupWizard.vue') },
       { path: 'vertical', component: () => import('pages/Vertical.vue') },
       { path: 'community', component: () => import('pages/CommunityView.vue') },
-      { path: 'agreement-details', component: () => import('pages/AgreementDetails.vue') }
+      { path: 'agreement-details', component: () => import('pages/AgreementDetails.vue') },
+      { path: 'new-agreement', component: () => import('pages/NewAgreement.vue') }
     ]
   },
 

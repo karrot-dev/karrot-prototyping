@@ -54,7 +54,7 @@
             </q-card>
 
             <template>
-              <q-btn class="q-mt-lg" round color="primary" icon="fa fa-plus" />
+              <q-btn class="q-mt-lg" to=new-agreement round color="primary" icon="fa fa-plus" />
             </template>
           </q-tab-panel>
 
