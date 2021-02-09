@@ -20,11 +20,11 @@
           <q-tab-panel name="agreements">
             <q-card
               class="q-pa-md q-my-md"
-              v-for="agreement in group.agreements"
+              v-for="agreement in group.pendingAgreements"
               :key="agreement.title"
             >
               <q-card-section class="justify-between" horizontal>
-                <div class="text-h5">Title of agreement</div>
+                <div class="text-h5"> {{ agreement.title }}</div>
                 <q-chip
                   clickable
                   icon-right="fa fa-history"
@@ -48,8 +48,16 @@
                 </div>
               </q-card-section>
 
-              <q-card-section class="q-pa-sm">
+              <q-card-section class="q-pa-sm justify-between" horizontal>
                 <q-btn label="Show details" color="primary" to=agreement-details />
+                <div>
+                  <q-icon name="fas fa-thumbs-up" class="q-pa-sm text-primary" style="font-size: 2em">
+                    <q-badge color="green" label="15" floating />
+                  </q-icon>
+                  <q-icon name="fas fa-thumbs-down" class="q-pa-sm text-primary" style="font-size: 2em">
+                    <q-badge color="red" floating>3</q-badge>
+                  </q-icon>
+                </div>
               </q-card-section>
             </q-card>
 

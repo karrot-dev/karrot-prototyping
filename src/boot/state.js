@@ -19,7 +19,7 @@ export function initialData () {
       governanceDescription: '',
       agreements: [
         {
-          title: 'This a title 1',
+          title: 'Title for an agreement 1',
           summary: 'Summary for an agreement 1',
           content: 'The agreement itself 1',
           tags: []
@@ -35,14 +35,14 @@ export function initialData () {
         {
           title: 'A proposal',
           reason: 'A reason to change the agreement',
-          summary: 'Propose a summary 1',
+          summary: 'Summary to proposal 1',
           content: 'The agreement with some changes 1',
           tags: []
         },
         {
           title: 'Another proposal',
           reason: 'A reason to change the agreement 2',
-          summary: 'Propose a summary 2',
+          summary: 'Summary to proposal 2',
           content: 'The agreement with some changes 2',
           tags: []
         }
