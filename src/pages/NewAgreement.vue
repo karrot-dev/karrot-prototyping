@@ -60,28 +60,12 @@
 
         <q-card-section>
           <q-input
-            v-model="agreement.summary"
-            label="Summary"
+            v-model="agreement.reason"
+            label="Reason for proposal"
             outlined
             autogrow
             input-style="min-height: 100px;"
           />
-        </q-card-section>
-
-        <q-card-section>
-          <q-input
-            v-model="agreement.content"
-            label="Agreement text"
-            outlined
-            autogrow
-            input-style="min-height: 200px;"
-          />
-        </q-card-section>
-
-        <q-card-section>
-          <div class="q-mt-sm">
-            <q-chip color="secondary">+ Add value tags</q-chip>
-          </div>
         </q-card-section>
 
         <q-card-actions
@@ -89,9 +73,9 @@
           align="center"
         >
           <q-btn
-            label="Submit"
+            label="Start proposal process"
             color="primary"
-            to="agreement-details"
+            @click="submit"
           />
         </q-card-actions>
       </q-card>
@@ -117,6 +101,13 @@ export default {
         }
       ), // would/should do deep clone here...
       dueByMask
+    }
+  },
+  methods: {
+    submit () {
+      console.log('submitting', this.agreement)
+      this.$root.$data.group.pendingAgreements.push(this.agreement)
+      this.$router.push('/edit-agreement?id=' + (this.$root.$data.group.pendingAgreements.length - 1))
     }
   },
   computed: {

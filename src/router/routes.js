@@ -10,7 +10,8 @@ const routes = [
       { path: 'community', component: () => import('pages/CommunityView.vue') },
       { path: 'agreement-details', component: () => import('pages/AgreementDetails.vue') },
       // { path: 'agreements/proposal', component: () => import('pages/AgreementProposalPage.vue') },
-      { path: 'new-agreement', component: () => import('pages/NewAgreement.vue') }
+      { path: 'new-agreement', component: () => import('pages/NewAgreement.vue') },
+      { path: 'edit-agreement', component: () => import('pages/EditAgreement.vue') }
     ]
   },
 

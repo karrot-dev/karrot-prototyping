@@ -20,7 +20,7 @@
           <q-tab-panel name="agreements">
             <q-card
               class="q-pa-md q-my-md"
-              v-for="agreement in group.pendingAgreements"
+              v-for="(agreement, id) in group.pendingAgreements"
               :key="agreement.title"
             >
               <q-card-section class="justify-between" horizontal>
@@ -49,7 +49,7 @@
               </q-card-section>
 
               <q-card-section class="q-pa-sm justify-between" horizontal>
-                <q-btn label="Show details" color="primary" to=agreement-details />
+                <q-btn label="Show details" color="primary" :to="'edit-agreement?id=' + id" />
                 <div>
                   <q-icon name="fas fa-thumbs-up" class="q-pa-sm text-primary" style="font-size: 2em">
                     <q-badge color="green" label="15" floating />
@@ -62,7 +62,7 @@
             </q-card>
 
             <template>
-              <q-btn class="q-mt-lg" to=new-agreement round color="primary" icon="fa fa-plus" />
+              <q-btn class="q-mt-lg" to="new-agreement" round color="primary" icon="fa fa-plus" />
             </template>
           </q-tab-panel>
 
