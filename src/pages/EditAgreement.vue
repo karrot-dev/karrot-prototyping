@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <div style="width: 800px;" class="row">
+    <div style="width: 1000px;" class="row">
       <!--
 
         This is an implementation of https://community.foodsaving.world/t/stage-3-making-a-decision/608/4
