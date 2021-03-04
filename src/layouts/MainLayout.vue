@@ -18,8 +18,8 @@
           exact
         />
         <q-route-tab
-          label="agreement proposal"
-          to="/agreements/proposal"
+          label="new agreement"
+          to="/new-agreement"
           exact
         />
         <q-route-tab
