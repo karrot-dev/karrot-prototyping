@@ -52,7 +52,7 @@
 
         <q-card-section>
           <q-input
-            v-model="group.pendingAgreements.title"
+            v-model="agreement.title"
             label="Agreement Title"
             outlined
           />
@@ -60,7 +60,7 @@
 
         <q-card-section>
           <q-input
-            v-model="group.pendingAgreements.summary"
+            v-model="agreement.summary"
             label="Summary"
             outlined
             autogrow
@@ -70,7 +70,7 @@
 
         <q-card-section>
           <q-input
-            v-model="group.pendingAgreements.content"
+            v-model="agreement.content"
             label="Agreement text"
             outlined
             autogrow
@@ -91,7 +91,7 @@
           <q-btn
             label="Submit"
             color="primary"
-            to=agreement-details
+            to="agreement-details"
           />
         </q-card-actions>
       </q-card>
@@ -102,7 +102,6 @@
 <script>
 import { date } from 'quasar'
 import formatDistance from 'date-fns/formatDistance'
-// import formatDistanceStrict from 'date-fns/formatDistanceStrict'
 
 const { addToDate, formatDate, extractDate, adjustDate } = date
 
@@ -110,9 +109,14 @@ export default {
   data () {
     const dueByMask = 'YYYY-MM-DD'
     return {
-      group: this.$root.$data.group,
-      dueByMask,
-      dueByDate: addToDate(new Date(), { days: 7 })
+      agreement: Object.assign(
+        {},
+        this.$root.$data.newAgreement,
+        {
+          dueBy: addToDate(new Date(), { days: 7 })
+        }
+      ), // would/should do deep clone here...
+      dueByMask
     }
   },
   computed: {
@@ -120,17 +124,17 @@ export default {
       return this.$q.screen.width < 450 || this.$q.screen.height < 450
     },
     dueInWords () {
-      return formatDistance(new Date(), this.dueByDate)
+      return formatDistance(new Date(), this.agreement.dueBy)
     },
     dueBy: {
       get () {
-        return formatDate(this.dueByDate, this.dueByMask)
+        return formatDate(this.agreement.dueBy, this.dueByMask)
       },
       set (val) {
         val = extractDate(val, this.dueByMask)
         // would need to do a bit of timezone thinking...
         val = adjustDate(val, { hours: 23, minutes: 59, seconds: 59 })
-        this.dueByDate = val
+        this.agreement.dueBy = val
       }
     }
   }

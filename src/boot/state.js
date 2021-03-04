@@ -1,5 +1,13 @@
 export function initialData () {
   return {
+    // you can use this as a "template" for a new agreement data object
+    newAgreement: {
+      title: '',
+      summary: '',
+      content: '',
+      tags: [],
+      dueBy: null // fill in later
+    },
     group: {
       // existing fields
       name: '',
