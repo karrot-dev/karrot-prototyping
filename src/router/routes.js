@@ -9,7 +9,8 @@ const routes = [
       { path: 'vertical', component: () => import('pages/Vertical.vue') },
       { path: 'community', component: () => import('pages/CommunityView.vue') },
       { path: 'agreement-details', component: () => import('pages/AgreementDetails.vue') },
-      { path: 'agreements/proposal', component: () => import('pages/AgreementProposalPage.vue') }
+      { path: 'agreements/proposal', component: () => import('pages/AgreementProposalPage.vue') },
+      { path: 'new-agreement', component: () => import('pages/NewAgreement.vue') }
     ]
   },
 

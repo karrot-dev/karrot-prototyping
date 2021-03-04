@@ -22,6 +22,11 @@
           to="/agreements/proposal"
           exact
         />
+        <q-route-tab
+          label="Agreement Details"
+          to="/agreement-details"
+          exact
+        />
       </q-tabs>
       <q-btn
         class="fixed-top-right"
