@@ -5,6 +5,7 @@
 </template>
 <script>
 import { debounce } from 'quasar'
+import { DATA_KEY } from 'boot/state'
 export default {
   name: 'App',
   data () {
@@ -17,7 +18,7 @@ export default {
     '$root.$data': {
       handler: debounce(function (value) {
         console.log('saving data')
-        localStorage.setItem('data', JSON.stringify(value))
+        localStorage.setItem(DATA_KEY, JSON.stringify(value))
         this.$q.notify({
           message: 'Saved data to local storage!',
           color: 'pink'

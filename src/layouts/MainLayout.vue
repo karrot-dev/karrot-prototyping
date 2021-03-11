@@ -3,6 +3,12 @@
     <q-page-container>
       <q-tabs>
         <q-route-tab
+          label="agreement list"
+          to="/agreements"
+          exact
+        />
+        <!--
+        <q-route-tab
           label="group wizard"
           to="/group-wizard"
           exact
@@ -27,6 +33,7 @@
           to="/agreement-details"
           exact
         />
+        -->
       </q-tabs>
       <q-btn
         class="fixed-top-right"
@@ -41,13 +48,13 @@
 </template>
 
 <script>
-import { initialData } from 'boot/state'
+import { DATA_KEY, initialData } from 'boot/state'
 
 export default {
   name: 'MainLayout',
   methods: {
     resetData () {
-      localStorage.removeItem('data')
+      localStorage.removeItem(DATA_KEY)
       const data = initialData()
       // because the various components pull out various values within the data
       // e.g. "group", if we just replace them, the components will still be referring
