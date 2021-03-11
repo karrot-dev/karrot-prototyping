@@ -3,8 +3,13 @@
     <q-page-container>
       <q-tabs>
         <q-route-tab
-          label="agreement list"
+          label="Agreements"
           to="/agreements"
+          exact
+        />
+        <q-route-tab
+          label="Proposals"
+          to="/proposals"
           exact
         />
         <!--

@@ -5,7 +5,10 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '/agreements', component: () => import('pages/AgreementList.vue') },
-      { path: '/agreements/:id', component: () => import('pages/AgreementDetail.vue') }
+      { path: '/proposals', component: () => import('pages/AgreementProposalList.vue') },
+      { path: '/agreements/:id', component: () => import('pages/AgreementDetail.vue') },
+      { path: '/proposals/:id', component: () => import('pages/AgreementProposalDetail.vue') },
+      { path: '/proposals/:id/edit', component: () => import('pages/AgreementProposalEdit.vue') }
       /*
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'group-wizard', component: () => import('pages/GroupWizard.vue') },

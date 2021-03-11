@@ -1,14 +1,14 @@
 <template>
   <q-page class="flex flex-center">
     <div style="width: 800px;">
-      <div class="text-h4">Agreements</div>
+      <div class="text-h4">Proposals</div>
       <q-card
         class="q-pa-md q-my-md"
         v-for="(agreement, index) in agreements"
         :key="agreement.title"
       >
         <q-badge floating color="positive">
-          Approved {{ agreement.date | formatDate }}
+          Due by {{ agreement.date | formatDate }}
         </q-badge>
         <div class="text-h5">{{ agreement.title }}</div>
 
@@ -17,9 +17,9 @@
         <q-card-section class="q-pa-sm">
           <q-btn
             class="q-mr-md"
-            label="Show full text"
+            label="Open discussion and voting"
             color="primary"
-            :to="`/agreements/${index}`"
+            :to="`/proposals/${index}`"
           />
         </q-card-section>
       </q-card>
@@ -34,7 +34,7 @@ export default {
     const now = new Date()
     const { agreements } = this.$root.$data.group
     return {
-      agreements: agreements.filter(({ date }) => date < now)
+      agreements: agreements.filter(({ date }) => date >= now)
     }
   }
 }

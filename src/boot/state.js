@@ -34,6 +34,8 @@ export function initialData () {
       governanceTypes: [],
       governanceDescription: '',
       agreements: [
+        // agreed (date is in the past)
+
         {
           reason: 'We have a lot of people now, so we need clearer guidelines',
           title: 'Procedures for food pickups',
@@ -49,9 +51,10 @@ export function initialData () {
           content: 'It is suggested that you announce the meetings at least 7 days in advance, and publish them at...',
           tags: [],
           date: subtractFromDate(now, { days: 12 })
-        }
-      ],
-      pendingAgreements: [
+        },
+
+        // proposals (date is in the future)
+
         {
           reason: 'A reason to change the agreement',
           title: 'A proposal',
@@ -77,11 +80,21 @@ export function initialData () {
   }
 }
 
+function convertState (data) {
+  // ensure dates are dates, etc...
+  const { group } = data
+  const { agreements } = group
+  for (const agreement of agreements) {
+    agreement.date = new Date(agreement.date)
+  }
+  return data
+}
+
 export default ({ app }) => {
   const value = localStorage.getItem(DATA_KEY)
   if (value) {
-    app.data = JSON.parse(value)
+    app.data = convertState(JSON.parse(value))
   } else {
-    app.data = initialData()
+    app.data = convertState(initialData())
   }
 }
