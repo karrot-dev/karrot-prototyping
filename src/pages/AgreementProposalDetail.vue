@@ -4,7 +4,7 @@
       <q-card
         class="q-pa-md col-8"
       >
-        <q-banner class="bg-primary text-white q-mb-md">
+        <q-banner class="bg-warning text-white q-mb-md">
           <div class="text-h6">{{ dueInWords }} remaining for discussion and voting</div>
         </q-banner>
 
