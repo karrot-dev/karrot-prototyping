@@ -40,6 +40,8 @@
               <q-date
                 v-model="dueBy"
                 :mask="dueByMask"
+                :navigation-min-year-month="'2021/03'"
+                :options="isValidDate"
                 minimal
                 @input="() => smallScreen && $refs.dueByProxy.hide()"
               />
@@ -108,6 +110,10 @@ export default {
       console.log('submitting', this.agreement)
       this.$root.$data.group.pendingAgreements.push(this.agreement)
       this.$router.push('/edit-agreement?id=' + (this.$root.$data.group.pendingAgreements.length - 1))
+    },
+    isValidDate (date) {
+      // only allow future dates
+      return date >= formatDate(new Date(), 'YYYY/MM/DD')
     }
   },
   computed: {
@@ -122,6 +128,7 @@ export default {
         return formatDate(this.agreement.dueBy, this.dueByMask)
       },
       set (val) {
+        if (!val) return // clicking on the selected date sets it to null, we don't want this behaviour
         val = extractDate(val, this.dueByMask)
         // would need to do a bit of timezone thinking...
         val = adjustDate(val, { hours: 23, minutes: 59, seconds: 59 })

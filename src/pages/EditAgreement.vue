@@ -10,31 +10,6 @@
         <q-card-section>
           <h3>Proposal</h3>
           <h4>Due in {{ dueInWords }}</h4>
-
-          Vote!
-          <q-btn-toggle
-            v-model="vote"
-            toggle-color="primary"
-            rounded
-            unelevated
-            size="xl"
-            :options="[
-            { value: -2, icon: 'far fa-sad-cry' },
-            { value: -1, icon: 'far fa-sad-tear' },
-            { value: 0, icon: 'far fa-meh' },
-            { value: 1, icon: 'far fa-grin' },
-            { value: 2, icon: 'far fa-grin-hearts' },
-          ]"
-          />
-          <q-btn
-            v-if="vote !== null"
-            @click="vote = null"
-            icon="fas fa-times"
-            title="Clear vote"
-            color="red"
-            size="sm"
-            flat
-          />
         </q-card-section>
 
         <q-card-section>
@@ -78,6 +53,33 @@
             outlined
             autogrow
             input-style="min-height: 100px;"
+          />
+        </q-card-section>
+
+        <q-card-section>
+          Vote!
+          <q-btn-toggle
+            v-model="vote"
+            toggle-color="primary"
+            rounded
+            unelevated
+            size="xl"
+            :options="[
+            { value: -2, icon: 'far fa-sad-cry' },
+            { value: -1, icon: 'far fa-sad-tear' },
+            { value: 0, icon: 'far fa-meh' },
+            { value: 1, icon: 'far fa-grin' },
+            { value: 2, icon: 'far fa-grin-hearts' },
+          ]"
+          />
+          <q-btn
+            v-if="vote !== null"
+            @click="vote = null"
+            icon="fas fa-times"
+            title="Clear vote"
+            color="red"
+            size="sm"
+            flat
           />
         </q-card-section>
 
