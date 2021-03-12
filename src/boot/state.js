@@ -1,7 +1,9 @@
 import { date } from 'quasar'
+import massiveDoc from 'pages/massive-doc.md'
+
 const { addToDate, subtractFromDate } = date
 
-const STATE_VERSION = 2 // can bump this to invalidate the data, if you change it a lot
+const STATE_VERSION = 3 // can bump this to invalidate the data, if you change it a lot
 
 export const DATA_KEY = `data:v${STATE_VERSION}`
 
@@ -67,6 +69,18 @@ export function initialData () {
           vote: null,
           messages: [],
           date: subtractFromDate(now, { days: 12 }),
+          previousAgreementId: null
+        },
+        {
+          id: nextId(),
+          reason: 'See how a big doc is',
+          title: 'Group Agreement',
+          summary: '',
+          content: massiveDoc,
+          tags: [],
+          vote: null,
+          messages: [],
+          date: subtractFromDate(now, { days: 3 }),
           previousAgreementId: null
         },
 
