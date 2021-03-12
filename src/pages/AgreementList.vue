@@ -4,7 +4,7 @@
       <div class="text-h4">Agreements</div>
       <q-card
         class="q-pa-md q-my-md"
-        v-for="(agreement, index) in agreements"
+        v-for="agreement in agreements"
         :key="agreement.title"
       >
         <q-badge floating color="positive">
@@ -19,11 +19,11 @@
             class="q-mr-md"
             label="Show full text"
             color="primary"
-            :to="`/agreements/${index}`"
+            :to="`/agreements/${agreement.id}`"
           />
         </q-card-section>
       </q-card>
-      <q-btn class="q-mt-lg" to="/agreements/new" round color="primary" icon="fa fa-plus" />
+      <q-btn class="q-mt-lg" to="/proposals/new" round color="primary" icon="fa fa-plus" />
     </div>
   </q-page>
 </template>

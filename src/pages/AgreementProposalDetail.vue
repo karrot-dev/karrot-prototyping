@@ -10,6 +10,16 @@
 
         <div class="text-h4">{{ agreement.title }}</div>
 
+        <q-card-section v-if="previousAgreement">
+          <p>
+            This is a proposal to modify the existing agreement: <a :href="`/#/agreements/${previousAgreementId}`" target="_blank">{{ previousAgreement.title }}</a>.
+          </p>
+        </q-card-section>
+
+        <q-card-section v-else>
+          <p>This is a proposal for a new agreement.</p>
+        </q-card-section>
+
         <q-card-section>
           <div class="text-caption">Reason:</div>
           <q-markdown :src="agreement.reason" />
@@ -33,28 +43,44 @@
         <q-card-section>
           Vote!
           <q-btn-toggle
-            v-model="vote"
+            v-model="agreement.vote"
             toggle-color="primary"
             rounded
             unelevated
             size="xl"
             :options="[
-            { value: -2, icon: 'far fa-sad-cry' },
-            { value: -1, icon: 'far fa-sad-tear' },
+            { value: -2, icon: 'far fa-sad-cry', disable: disableNegativeVote },
+            { value: -1, icon: 'far fa-sad-tear', disable: disableNegativeVote },
             { value: 0, icon: 'far fa-meh' },
             { value: 1, icon: 'far fa-grin' },
             { value: 2, icon: 'far fa-grin-hearts' },
           ]"
           />
           <q-btn
-            v-if="vote !== null"
-            @click="vote = null"
+            v-if="agreement.vote !== null"
+            @click="agreement.vote = null"
             icon="fas fa-times"
             title="Clear vote"
             color="red"
             size="sm"
             flat
           />
+          <q-banner class="bg-green-1 q-pa-md q-mt-md">
+            <template #avatar>
+              <q-icon name="fas fa-comments" color="primary" />
+            </template>
+            <template v-if="disableNegativeVote">
+              Please consider participating in the discussion by writing in the chat.
+              You cannot vote negatively if you haven't written anything.
+            </template>
+            <template v-else>
+              Thanks for participating in the discussion! This means you can vote negatively if you want, but consider continuing the discussion.
+            </template>
+            <br class="q-mb-sm">
+            This helps people to understand your perspective, and possibly change the proposal to include your considerations.
+            <br class="q-mb-sm">
+            Your vote will be anonymous, but your messages will not be.
+          </q-banner>
         </q-card-section>
 
         <q-card-section class="q-pa-sm">
@@ -65,14 +91,25 @@
             :to="`/proposals/${id}/edit`"
           />
           <q-btn
-            label="Show history"
+            v-if="previousAgreement"
+            label="Show changes to existing agreement"
             color="primary"
+            @click="showChanges()"
           />
         </q-card-section>
       </q-card>
-      <q-card class="q-pa-md col">
-        <q-chat-message :text="['Oh, this looks like a good idea']"/>
-        <q-chat-message :text="['No it\'s really bad']" sent/>
+      <q-card class="q-pa-md col flex">
+        <div ref="chat" style="height: 400px; overflow-y: scroll; overflow-x: hidden;" class="full-width">
+          <q-chat-message
+            v-for="(message, index) in agreement.messages"
+            :key="index"
+            :text="[message]"
+          />
+        </div>
+        <q-space/>
+        <form @submit.stop.prevent="sendMessage()" class="full-width">
+          <q-input v-model="message" outlined />
+        </form>
       </q-card>
     </div>
   </q-page>
@@ -80,21 +117,49 @@
 
 <script>
 import formatDistance from 'date-fns/formatDistance'
+import AgreementDiffDialog from '../components/AgreementDiffDialog'
 
 export default {
   data () {
-    const { id } = this.$route.params
+    const { proposalId: id } = this.$route.params
     const { agreements } = this.$root.$data.group
-    const agreement = agreements[id || 0]
+    const agreement = agreements.find(a => a.id === id)
+    const { previousAgreementId } = agreement
+    let previousAgreement
+    if (previousAgreementId) {
+      previousAgreement = agreements.find(a => a.id === previousAgreementId)
+    }
     return {
       id,
-      vote: null,
-      agreement
+      agreement,
+      previousAgreement,
+      previousAgreementId,
+      message: ''
+    }
+  },
+  methods: {
+    sendMessage () {
+      console.log('sending message', this.message)
+      this.agreement.messages.push(this.message)
+      this.message = ''
+      this.$nextTick(() => {
+        this.$refs.chat.scrollTo(0, this.$refs.chat.scrollHeight)
+      })
+    },
+    showChanges () {
+      this.$q.dialog({
+        component: AgreementDiffDialog,
+        fromAgreement: this.previousAgreement,
+        toAgreement: this.agreement
+      })
     }
   },
   computed: {
     dueInWords () {
       return formatDistance(new Date(), this.agreement.date)
+    },
+    disableNegativeVote () {
+      return this.agreement.messages.length === 0
     }
   }
 }

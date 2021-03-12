@@ -1,9 +1,15 @@
 import { date } from 'quasar'
 const { addToDate, subtractFromDate } = date
 
-const STATE_VERSION = 1 // can bump this to invalidate the data, if you change it a lot
+const STATE_VERSION = 2 // can bump this to invalidate the data, if you change it a lot
 
 export const DATA_KEY = `data:v${STATE_VERSION}`
+
+export function nextId () {
+  // ms timestamp + random
+  // as string to simplify route param check
+  return String((new Date().getTime() * 1000) + Math.floor(Math.random() * 1000))
+}
 
 export function initialData () {
   const now = new Date()
@@ -14,7 +20,10 @@ export function initialData () {
       summary: '',
       content: '',
       tags: [],
-      dueBy: null // fill in later
+      vote: null, // for the current user, as that's all there is!
+      date: null, // fill in later,
+      messages: [], // chat messages,
+      previousAgreementId: null // if it has a history!
     },
     group: {
       // existing fields
@@ -37,39 +46,55 @@ export function initialData () {
         // agreed (date is in the past)
 
         {
+          id: nextId(),
           reason: 'We have a lot of people now, so we need clearer guidelines',
           title: 'Procedures for food pickups',
           summary: 'Make sure you are nice and polite',
           content: 'Being polite is very important, there are 35 different aspects to consider, ...',
           tags: [],
-          date: subtractFromDate(now, { days: 5 })
+          vote: null,
+          messages: [],
+          date: subtractFromDate(now, { days: 5 }),
+          previousAgreementId: null
         },
         {
+          id: nextId(),
           reason: 'We need to tighten up our meetings',
           title: 'Guidelines for running meetings',
           summary: 'Announce them early, take minutes, invite all to speak',
           content: 'It is suggested that you announce the meetings at least 7 days in advance, and publish them at...',
           tags: [],
-          date: subtractFromDate(now, { days: 12 })
+          vote: null,
+          messages: [],
+          date: subtractFromDate(now, { days: 12 }),
+          previousAgreementId: null
         },
 
         // proposals (date is in the future)
 
         {
+          id: nextId(),
           reason: 'A reason to change the agreement',
           title: 'A proposal',
           summary: 'Summary to proposal 1',
           content: 'The agreement with some changes 1',
           tags: [],
-          date: addToDate(now, { days: 7 })
+          vote: null,
+          messages: [],
+          date: addToDate(now, { days: 7 }),
+          previousAgreementId: null
         },
         {
+          id: nextId(),
           reason: 'A reason to change the agreement 2',
           title: 'Another proposal',
           summary: 'Summary to proposal 2',
           content: 'The agreement with some changes 2',
           tags: [],
-          date: addToDate(now, { days: 14 })
+          vote: null,
+          messages: [],
+          date: addToDate(now, { days: 14 }),
+          previousAgreementId: null
         }
       ]
 

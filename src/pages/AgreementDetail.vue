@@ -34,6 +34,7 @@
           <q-btn
             label="Propose change"
             color="primary"
+            :to="`/agreements/${id}/propose`"
           />
         </q-card-section>
       </q-card>
@@ -44,10 +45,11 @@
 <script>
 export default {
   data () {
-    const { id } = this.$route.params
+    const { agreementId: id } = this.$route.params
     const { agreements } = this.$root.$data.group
-    const agreement = agreements[id || 0]
+    const agreement = agreements.find(a => a.id === id)
     return {
+      id,
       agreement
     }
   }
