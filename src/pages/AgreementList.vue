@@ -17,7 +17,7 @@
         <q-card-section class="q-pa-sm">
           <q-btn
             class="q-mr-md"
-            label="Show full text"
+            label="Open details"
             color="primary"
             :to="`/agreements/${agreement.id}`"
           />

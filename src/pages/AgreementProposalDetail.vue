@@ -11,32 +11,63 @@
         <div class="text-h4">{{ agreement.title }}</div>
 
         <q-card-section v-if="previousAgreement">
-          <p>
-            This is a proposal to modify the existing agreement: <a :href="`/#/agreements/${previousAgreementId}`" target="_blank">{{ previousAgreement.title }}</a>.
-          </p>
+          This is a proposal to modify the existing agreement: <a :href="`/#/agreements/${previousAgreementId}`" target="_blank">{{ previousAgreement.title }}</a>.
         </q-card-section>
 
         <q-card-section v-else>
-          <p>This is a proposal for a new agreement.</p>
+          This is a proposal for a new agreement.
         </q-card-section>
 
         <q-card-section>
-          <div class="text-caption">Reason:</div>
+          <div class="text-caption text-uppercase">Reason for proposal</div>
           <q-markdown :src="agreement.reason" />
+        </q-card-section>
 
-          <div class="text-caption">Summary:</div>
-          <q-markdown :src="agreement.summary" />
+        <q-card-section>
+          <div class="text-h6 q-mb-md">The proposal</div>
+          <div
+            class="bg-grey-2 limit-height q-pa-md"
+            ref="content"
+            :class="{ 'content-overflow': contentOverflow }"
+          >
+            <div class="q-mb-md">
+              <q-chip color="secondary">
+                Sharing is Caring
+              </q-chip>
+              <q-chip color="secondary">
+                Sustainability
+              </q-chip>
+            </div>
 
-          <div class="text-caption">Content:</div>
-          <q-markdown :src="agreement.content" />
+            <div class="text-caption text-uppercase">Summary</div>
+            <q-markdown :src="agreement.summary" class="q-mb-lg"/>
 
-          <div class="q-mt-sm">
-            <q-chip color="secondary">
-              Sharing is Caring
-            </q-chip>
-            <q-chip color="secondary">
-              Sustainability
-            </q-chip>
+            <div class="text-caption text-uppercase">Content</div>
+            <q-markdown
+              :src="agreement.content"
+              class="q-mb-lg"
+            />
+          </div>
+          <q-btn
+            v-if="contentOverflow"
+            class="full-width"
+            outline
+            label="Open full proposal"
+            @click="openFull()"
+          />
+
+          <div class="q-mt-md q-gutter-md">
+            <q-btn
+              label="Edit proposal"
+              color="primary"
+              :to="`/proposals/${id}/edit`"
+            />
+            <q-btn
+              v-if="previousAgreement"
+              label="Show changes to existing agreement"
+              color="primary"
+              @click="showChanges()"
+            />
           </div>
         </q-card-section>
 
@@ -53,7 +84,17 @@
               { label: getLabel(1), value: 1 },
               { label: getLabel(2), value: 2 },
             ]"
-          />
+          >
+            <q-btn
+              :disable="agreement.vote === null"
+              @click="agreement.vote = null"
+              icon="fas fa-times"
+              title="Clear vote"
+              :color="agreement.vote === null ? 'grey' : 'red'"
+              size="sm"
+              flat
+            />
+          </q-btn-toggle>
 
           <div class="row" v-if="options.votingControl === 'slider'">
             <q-slider
@@ -125,21 +166,6 @@
             This helps people to understand your perspective, and possibly change the proposal to include your considerations.
           </q-banner>
         </q-card-section>
-
-        <q-card-section class="q-pa-sm">
-          <q-btn
-            class="q-mr-md"
-            label="Edit proposal"
-            color="primary"
-            :to="`/proposals/${id}/edit`"
-          />
-          <q-btn
-            v-if="previousAgreement"
-            label="Show changes to existing agreement"
-            color="primary"
-            @click="showChanges()"
-          />
-        </q-card-section>
       </q-card>
       <q-card class="q-pa-md col flex">
         <div ref="chat" style="height: 400px; overflow-y: scroll; overflow-x: hidden;" class="full-width">
@@ -161,6 +187,7 @@
 <script>
 import formatDistance from 'date-fns/formatDistance'
 import AgreementDiffDialog from '../components/AgreementDiffDialog'
+import AgreementDialog from 'components/AgreementDialog'
 
 export default {
   data () {
@@ -178,7 +205,8 @@ export default {
       previousAgreement,
       previousAgreementId,
       message: '',
-      options: this.$root.$data.options
+      options: this.$root.$data.options,
+      contentOverflow: false
     }
   },
   methods: {
@@ -206,6 +234,34 @@ export default {
         1: 'Support',
         2: 'Strong Support'
       }[score]
+    },
+    checkContentOverflow () {
+      console.log('check overflow', this.$refs.content)
+      if (this.$refs.content) {
+        const { clientHeight, scrollHeight } = this.$refs.content
+        console.log('content', { clientHeight, scrollHeight })
+        this.contentOverflow = scrollHeight > clientHeight
+      } else {
+        this.contentOverflow = false
+      }
+    },
+    openFull () {
+      this.$q.dialog({
+        component: AgreementDialog,
+        agreement: this.agreement
+      })
+    }
+  },
+  mounted () {
+    this.checkContentOverflow()
+  },
+  watch: {
+    agreement: {
+      deep: true,
+      immediate: true,
+      handler () {
+        this.checkContentOverflow()
+      }
     }
   },
   computed: {
@@ -218,3 +274,21 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.limit-height {
+  position: relative;
+  max-height: 400px;
+  overflow-y: hidden;
+}
+.limit-height.content-overflow::before {
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background: linear-gradient(transparent 80%,#fff);
+}
+</style>

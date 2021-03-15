@@ -9,7 +9,7 @@
         </q-card-section>
 
         <q-card-section v-if="isNew && isChangeToExistingAgreement">
-          <div class="text-h4">Propose change to existing agreement</div>
+          <div class="text-h4 q-mb-md">Propose change to existing agreement</div>
           <p>
             You are proposing a change to the agreement: <a :href="`/#/agreements/${existingAgreementId}`" target="_blank">{{ existingAgreement.title }}</a>.
           </p>
@@ -23,7 +23,7 @@
         </q-card-section>
 
         <q-card-section v-if="isNew && !isChangeToExistingAgreement">
-          <div class="text-h4">Propose a new agreement</div>
+          <div class="text-h4 q-mb-md">Propose a new agreement</div>
           <p>
             You are proposing a new agreement for the group.
           </p>
@@ -38,7 +38,7 @@
 
         <q-card-section v-if="isNew">
           <q-input
-            label="Duration for discussion and voting"
+            label="Time period for discussion and voting"
             ref="date"
             v-model="agreementDate"
             outlined
@@ -70,6 +70,20 @@
 
         <q-card-section>
           <q-input
+            v-model="agreement.reason"
+            label="Reason for proposal"
+            outlined
+            autogrow
+            input-style="min-height: 100px;"
+          />
+        </q-card-section>
+
+        <q-card-section>
+          <div class="text-h6">Proposal</div>
+        </q-card-section>
+
+        <q-card-section>
+          <q-input
             v-model="agreement.title"
             label="Agreement Title"
             outlined
@@ -77,13 +91,9 @@
         </q-card-section>
 
         <q-card-section>
-          <q-input
-            v-model="agreement.reason"
-            label="Reason"
-            outlined
-            autogrow
-            input-style="min-height: 100px;"
-          />
+          <div class="q-mt-sm">
+            <q-chip color="secondary">+ Add value tags</q-chip>
+          </div>
         </q-card-section>
 
         <q-card-section>
@@ -104,12 +114,6 @@
             autogrow
             input-style="min-height: 200px;"
           />
-        </q-card-section>
-
-        <q-card-section>
-          <div class="q-mt-sm">
-            <q-chip color="secondary">+ Add value tags</q-chip>
-          </div>
         </q-card-section>
 
         <q-card-section class="q-pa-sm">
@@ -147,6 +151,7 @@ export default {
         existingAgreement = agreements.find(a => a.id === agreementId)
         agreement = cloneDeep(existingAgreement)
         agreement.previousAgreementId = agreementId
+        agreement.reason = ''
       } else {
         // a fresh new one
         agreement = cloneDeep(this.$root.$data.newAgreement)
