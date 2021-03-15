@@ -1,6 +1,23 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-page-container>
+      <q-btn
+        class="fixed-top-left z-max"
+        unelevated
+        icon="fas fa-cog"
+        label="Prototype variants"
+      >
+        <q-menu>
+          <div class="q-pa-md">
+            <div class="text-caption text-uppercase">Voting control</div>
+            <div class="row q-gutter-md">
+              <q-radio v-model="options.votingControl" val="faces" label="Faces" />
+              <q-radio v-model="options.votingControl" val="slider" label="Slider" />
+              <q-radio v-model="options.votingControl" val="text-buttons" label="Text" />
+            </div>
+          </div>
+        </q-menu>
+      </q-btn>
       <q-tabs>
         <q-route-tab
           label="Agreements"
@@ -57,6 +74,11 @@ import { DATA_KEY, initialData } from 'boot/state'
 
 export default {
   name: 'MainLayout',
+  data () {
+    return {
+      options: this.$root.$data.options
+    }
+  },
   methods: {
     resetData () {
       localStorage.removeItem(DATA_KEY)
