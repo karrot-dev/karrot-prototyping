@@ -1,9 +1,7 @@
 <template>
   <q-page class="flex flex-center">
-    <div style="width: 1000px;" class="row">
-      <q-card
-        class="q-pa-md col-8"
-      >
+    <div style="width: 1000px;">
+      <q-card class="q-pa-md">
         <q-banner class="bg-warning text-white q-mb-md">
           <div class="text-h6">{{ dueInWords }} remaining for discussion and voting</div>
         </q-banner>
@@ -73,28 +71,31 @@
 
         <q-card-section>
           <div class="text-h6 q-mb-md">What do you think about this proposal?</div>
-          <q-btn-toggle
-            v-if="options.votingControl === 'text-buttons'"
-            unelevated
-            v-model="agreement.vote"
-            :options="[
-              { label: getLabel(-2), value: -2, disable: disableNegativeVote },
-              { label: getLabel(-1), value: -1, disable: disableNegativeVote },
-              { label: getLabel(0), value: 0 },
-              { label: getLabel(1), value: 1 },
-              { label: getLabel(2), value: 2 },
-            ]"
-          >
-            <q-btn
-              :disable="agreement.vote === null"
-              @click="agreement.vote = null"
-              icon="fas fa-times"
-              title="Clear vote"
-              :color="agreement.vote === null ? 'grey' : 'red'"
-              size="sm"
-              flat
-            />
-          </q-btn-toggle>
+          <div class="row q-my-lg" v-if="options.votingControl === 'text-buttons'">
+            <q-space/>
+            <q-btn-toggle
+              unelevated
+              v-model="agreement.vote"
+              :options="[
+                { label: getLabel(-2), value: -2, disable: disableNegativeVote },
+                { label: getLabel(-1), value: -1, disable: disableNegativeVote },
+                { label: getLabel(0), value: 0 },
+                { label: getLabel(1), value: 1 },
+                { label: getLabel(2), value: 2 },
+              ]"
+            >
+              <q-btn
+                :disable="agreement.vote === null"
+                @click="agreement.vote = null"
+                icon="fas fa-times"
+                title="Clear vote"
+                :color="agreement.vote === null ? 'grey' : 'red'"
+                size="sm"
+                flat
+              />
+            </q-btn-toggle>
+            <q-space/>
+          </div>
 
           <div class="row" v-if="options.votingControl === 'slider'">
             <q-slider
@@ -115,7 +116,7 @@
               @click="agreement.vote = null"
               icon="fas fa-times"
               title="Clear vote"
-              color="red"
+              :color="agreement.vote === null ? 'grey' : 'red'"
               size="sm"
               flat
             />
@@ -138,11 +139,11 @@
             ]"
             />
             <q-btn
-              v-if="agreement.vote !== null"
+              :disable="agreement.vote === null"
               @click="agreement.vote = null"
               icon="fas fa-times"
               title="Clear vote"
-              color="red"
+              :color="agreement.vote === null ? 'grey' : 'red'"
               size="sm"
               flat
             />
@@ -167,19 +168,28 @@
           </q-banner>
         </q-card-section>
       </q-card>
-      <q-card class="q-pa-md col flex">
-        <div ref="chat" style="height: 400px; overflow-y: scroll; overflow-x: hidden;" class="full-width">
-          <q-chat-message
-            v-for="(message, index) in agreement.messages"
-            :key="index"
-            :text="[message]"
-          />
-        </div>
-        <q-space/>
-        <form @submit.stop.prevent="sendMessage()" class="full-width">
-          <q-input v-model="message" outlined />
-        </form>
-      </q-card>
+
+      <portal to="layout">
+        <q-drawer
+          side="right"
+          show-if-above
+          elevated
+          overlay
+          :width="400"
+          :breakpoint="500"
+        >
+          <div ref="chat" style="position: absolute; top: 0; bottom: 85px; width: 100%; padding: 16px; overflow-y: auto;">
+            <q-chat-message
+              v-for="(message, index) in agreement.messages"
+              :key="index"
+              :text="[message]"
+            />
+          </div>
+          <form @submit.stop.prevent="sendMessage()" class="full-width absolute-bottom q-pa-md">
+            <q-input v-model="message" outlined placeholder="Write a message"/>
+          </form>
+        </q-drawer>
+      </portal>
     </div>
   </q-page>
 </template>
@@ -210,13 +220,13 @@ export default {
     }
   },
   methods: {
-    sendMessage () {
+    async sendMessage () {
       console.log('sending message', this.message)
       this.agreement.messages.push(this.message)
       this.message = ''
-      this.$nextTick(() => {
-        this.$refs.chat.scrollTo(0, this.$refs.chat.scrollHeight)
-      })
+      await this.$nextTick()
+      await this.$nextTick()
+      this.$refs.chat.scrollTo(0, this.$refs.chat.scrollHeight)
     },
     showChanges () {
       this.$q.dialog({

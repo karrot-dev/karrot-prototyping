@@ -102,7 +102,7 @@
             label="Summary"
             outlined
             autogrow
-            input-style="min-height: 100px;"
+            input-style="min-height: 100px; max-height: 600px;"
           />
         </q-card-section>
 
@@ -112,7 +112,7 @@
             label="Agreement text"
             outlined
             autogrow
-            input-style="min-height: 200px;"
+            input-style="min-height: 200px; max-height: 600px;"
           />
         </q-card-section>
 

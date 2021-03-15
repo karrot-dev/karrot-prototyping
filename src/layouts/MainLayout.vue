@@ -1,71 +1,49 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-page-container>
-      <q-btn
-        class="fixed-top-left z-max"
-        unelevated
-        icon="fas fa-cog"
-        label="Prototype variants"
-      >
-        <q-menu>
-          <div class="q-pa-md">
-            <div class="text-caption text-uppercase">Voting control</div>
-            <div class="row q-gutter-md">
-              <q-radio v-model="options.votingControl" val="faces" label="Faces" />
-              <q-radio v-model="options.votingControl" val="slider" label="Slider" />
-              <q-radio v-model="options.votingControl" val="text-buttons" label="Text" />
+    <q-header elevated>
+      <q-toolbar>
+        <q-space/>
+        <q-tabs>
+          <q-route-tab
+            label="Agreements"
+            to="/agreements"
+            exact
+          />
+          <q-route-tab
+            label="Proposals"
+            to="/proposals"
+            exact
+          />
+        </q-tabs>
+        <q-space/>
+        <q-btn
+          unelevated
+          icon="fas fa-cog"
+          label="Prototype Options"
+        >
+          <q-menu>
+            <div class="q-pa-md">
+              <div class="text-caption text-uppercase">Voting control</div>
+              <div class="row q-gutter-md">
+                <q-radio v-model="options.votingControl" val="faces" label="Faces" />
+                <q-radio v-model="options.votingControl" val="slider" label="Slider" />
+                <q-radio v-model="options.votingControl" val="text-buttons" label="Text" />
+              </div>
+              <q-btn
+                label="Reset prototype data"
+                @click="resetData()"
+                color="red"
+                flat
+              />
             </div>
-          </div>
-        </q-menu>
-      </q-btn>
-      <q-tabs>
-        <q-route-tab
-          label="Agreements"
-          to="/agreements"
-          exact
-        />
-        <q-route-tab
-          label="Proposals"
-          to="/proposals"
-          exact
-        />
-        <!--
-        <q-route-tab
-          label="group wizard"
-          to="/group-wizard"
-          exact
-        />
-        <q-route-tab
-          label="edit view"
-          to="/vertical"
-          exact
-        />
-        <q-route-tab
-          label="community view"
-          to="/community"
-          exact
-        />
-        <q-route-tab
-          label="new agreement"
-          to="/new-agreement"
-          exact
-        />
-        <q-route-tab
-          label="Agreement Details"
-          to="/agreement-details"
-          exact
-        />
-        -->
-      </q-tabs>
-      <q-btn
-        class="fixed-top-right"
-        label="Reset data"
-        @click="resetData()"
-        color="red"
-        flat
-      />
+          </q-menu>
+        </q-btn>
+      </q-toolbar>
+    </q-header>
+    <q-page-container>
       <router-view />
     </q-page-container>
+    <portal-target name="layout"/>
   </q-layout>
 </template>
 
