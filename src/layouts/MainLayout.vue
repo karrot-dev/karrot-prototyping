@@ -1,9 +1,14 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="lHh Lpr lFf" class="main">
     <q-header elevated>
       <q-toolbar>
         <q-space/>
         <q-tabs>
+          <q-route-tab
+            label="Home"
+            to="/"
+            exact
+          />
           <q-route-tab
             label="Agreements"
             to="/agreements"
@@ -76,3 +81,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.main {
+  background-image: url(https://dev.karrot.world/img/repeating_grey.131837b7.png);
+  background-attachment: fixed;
+  background-size: 600px;
+}
+</style>
