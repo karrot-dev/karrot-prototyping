@@ -84,7 +84,7 @@ export default {
 
 <style scoped>
 .main {
-  background-image: url(https://dev.karrot.world/img/repeating_grey.131837b7.png);
+  background-image: url(~assets/repeating_grey.png);
   background-attachment: fixed;
   background-size: 600px;
 }
