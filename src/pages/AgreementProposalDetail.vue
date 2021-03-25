@@ -28,23 +28,7 @@
             ref="content"
             :class="{ 'content-overflow': contentOverflow }"
           >
-            <div class="q-mb-md">
-              <q-chip color="secondary">
-                Sharing is Caring
-              </q-chip>
-              <q-chip color="secondary">
-                Sustainability
-              </q-chip>
-            </div>
-
-            <div class="text-caption text-uppercase">Summary</div>
-            <q-markdown :src="agreement.summary" class="q-mb-lg"/>
-
-            <div class="text-caption text-uppercase">Content</div>
-            <q-markdown
-              :src="agreement.content"
-              class="q-mb-lg"
-            />
+            <agreement :agreement="agreement"/>
           </div>
           <q-btn
             v-if="contentOverflow"
@@ -198,8 +182,12 @@
 import formatDistance from 'date-fns/formatDistance'
 import AgreementDiffDialog from '../components/AgreementDiffDialog'
 import AgreementDialog from 'components/AgreementDialog'
+import Agreement from 'components/Agreement'
 
 export default {
+  components: {
+    Agreement
+  },
   data () {
     const { proposalId: id } = this.$route.params
     const { agreements } = this.$root.$data.group
@@ -246,10 +234,8 @@ export default {
       }[score]
     },
     checkContentOverflow () {
-      console.log('check overflow', this.$refs.content)
       if (this.$refs.content) {
         const { clientHeight, scrollHeight } = this.$refs.content
-        console.log('content', { clientHeight, scrollHeight })
         this.contentOverflow = scrollHeight > clientHeight
       } else {
         this.contentOverflow = false
@@ -288,7 +274,7 @@ export default {
 <style scoped>
 .limit-height {
   position: relative;
-  max-height: 400px;
+  max-height: 600px;
   overflow-y: hidden;
 }
 .limit-height.content-overflow::before {

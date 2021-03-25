@@ -28,6 +28,7 @@ export function initialData () {
       vote: null, // for the current user, as that's all there is!
       date: null, // fill in later,
       messages: [], // chat messages,
+      values: [], // list of the value names
       previousAgreementId: null // if it has a history!
     },
     group: {
@@ -59,6 +60,7 @@ export function initialData () {
           tags: [],
           vote: null,
           messages: [],
+          values: [],
           date: subtractFromDate(now, { days: 5 }),
           previousAgreementId: null
         },
@@ -71,6 +73,7 @@ export function initialData () {
           tags: [],
           vote: null,
           messages: [],
+          values: [],
           date: subtractFromDate(now, { days: 12 }),
           previousAgreementId: null
         },
@@ -83,6 +86,7 @@ export function initialData () {
           tags: [],
           vote: null,
           messages: [],
+          values: [],
           date: subtractFromDate(now, { days: 3 }),
           previousAgreementId: null
         },
@@ -98,6 +102,7 @@ export function initialData () {
           tags: [],
           vote: null,
           messages: [],
+          values: [],
           date: addToDate(now, { days: 7 }),
           previousAgreementId: null
         },
@@ -110,6 +115,7 @@ export function initialData () {
           tags: [],
           vote: null,
           messages: [],
+          values: [],
           date: addToDate(now, { days: 14 }),
           previousAgreementId: null
         }

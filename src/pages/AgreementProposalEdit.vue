@@ -72,6 +72,7 @@
           <q-input
             v-model="agreement.reason"
             label="Reason for proposal"
+            hint="Why are making this proposal? Is it a response to something that happened? What are hoping it will achieve?"
             outlined
             autogrow
             input-style="min-height: 100px;"
@@ -91,9 +92,49 @@
         </q-card-section>
 
         <q-card-section>
-          <div class="q-mt-sm">
-            <q-chip color="secondary">+ Add value tags</q-chip>
-          </div>
+          <values :values="agreement.values" class="q-mb-lg q-pa-md bg-grey-2"/>
+          <q-field
+            borderless
+            hint="Adding values help people understand why the agreement is important"
+          >
+            <q-btn
+              :label="selectedValues.length > 0 ? 'Edit values' : 'Add values'"
+              unelevated
+              rounded
+              color="green"
+              @click="editValues = true"
+            />
+          </q-field>
+
+          <custom-dialog v-model="editValues">
+            <template #message>
+              <div
+                v-for="category in valueCategoryDefinitions"
+                :key="category.name"
+              >
+                <div class="text-h4 q-my-md q-ml-md">{{ category.name }}</div>
+                <q-btn
+                  v-for="value in valuesForCategory(category.name)"
+                  :key="value.name"
+                  :label="value.name"
+                  unelevated
+                  rounded
+                  @click="toggleValue(value)"
+                  class="q-mr-sm q-mb-sm"
+                  :class="selectedValues.includes(value) ? 'bg-green text-white' : ''"
+                />
+              </div>
+            </template>
+            <template #actions>
+              <QBtn
+                v-close-popup
+                flat
+                color="primary"
+                label="Done"
+              />
+            </template>
+
+          </custom-dialog>
         </q-card-section>
 
         <q-card-section>
@@ -134,13 +175,21 @@ import cloneDeep from 'clone-deep'
 import formatDistance from 'date-fns/formatDistance'
 import { date } from 'quasar'
 import { nextId } from 'boot/state'
+import CustomDialog from 'components/CustomDialog'
+import Values from 'components/Values'
+import { valueCategoryDefinitions, valueDefinitions } from 'src/data'
 
 const { addToDate, formatDate, extractDate, adjustDate } = date
 
 export default {
+  components: {
+    Values,
+    CustomDialog
+  },
   data () {
     const { proposalId: id, agreementId } = this.$route.params
-    const { agreements } = this.$root.$data.group
+    const { group } = this.$root.$data
+    const { agreements } = group
     let agreement
     let existingAgreement
     if (id) {
@@ -164,10 +213,23 @@ export default {
       existingAgreementId: agreementId,
       vote: null,
       agreement,
-      dateMask: 'YYYY-MM-DD'
+      dateMask: 'YYYY-MM-DD',
+      editValues: false,
+      valueCategoryDefinitions
     }
   },
   methods: {
+    valuesForCategory (category) {
+      return valueDefinitions.filter(value => value.categories.includes(category))
+    },
+    toggleValue (value) {
+      const idx = this.agreement.values.indexOf(value.name)
+      if (idx !== -1) {
+        this.agreement.values.splice(idx, 1)
+      } else {
+        this.agreement.values.push(value.name)
+      }
+    },
     save () {
       if (this.id) {
         this.$q.notify({
@@ -191,6 +253,18 @@ export default {
     }
   },
   computed: {
+    selectedValues () {
+      return this.agreement.values.map(name => valueDefinitions.find(value => value.name === name))
+    },
+    selectedCategories () {
+      const categories = new Set()
+      for (const value of this.selectedValues) {
+        for (const category of value.categories) {
+          categories.add(category)
+        }
+      }
+      return Array.from(categories).map(name => valueCategoryDefinitions.find(category => category.name === name))
+    },
     isNew () {
       return !this.id
     },

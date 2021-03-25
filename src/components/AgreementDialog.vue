@@ -7,7 +7,7 @@
             name="fas fa-info-circle"
             class="on-left"
           />
-          <span>{{ agreement.title }}</span>
+          <span>Proposal</span>
         </q-toolbar-title>
         <q-btn
           outline
@@ -16,33 +16,18 @@
         />
       </q-toolbar>
 
-      <q-card-section>
-        <div>
-          <q-chip color="secondary">
-            Sharing is Caring
-          </q-chip>
-          <q-chip color="secondary">
-            Sustainability
-          </q-chip>
-        </div>
-      </q-card-section>
-
-      <q-card-section v-if="agreement.summary">
-        <div class="bg-amber-1 q-pa-md q-ma-md">
-          <div class="text-caption text-uppercase q-mb-md">Summary</div>
-          <q-markdown :src="agreement.summary"/>
-        </div>
-      </q-card-section>
-
-      <q-card-section>
-        <q-markdown :src="agreement.content"/>
-      </q-card-section>
+      <agreement :agreement="agreement" class="q-pa-lg" />
     </q-card>
   </q-dialog>
 </template>
 
 <script>
+import Agreement from 'components/Agreement'
+
 export default {
+  components: {
+    Agreement
+  },
   props: {
     agreement: {
       type: Object,
