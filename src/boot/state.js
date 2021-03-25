@@ -3,7 +3,7 @@ import massiveDoc from 'pages/massive-doc.md'
 
 const { addToDate, subtractFromDate } = date
 
-const STATE_VERSION = 5 // can bump this to invalidate the data, if you change it a lot
+const STATE_VERSION = 6 // can bump this to invalidate the data, if you change it a lot
 
 export const DATA_KEY = `data:v${STATE_VERSION}`
 
