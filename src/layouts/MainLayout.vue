@@ -3,7 +3,9 @@
     <q-header elevated>
       <q-toolbar>
         <q-space/>
-        <q-tabs>
+        <q-tabs
+          mobile-arrows
+        >
           <q-route-tab
             label="Home"
             to="/"
