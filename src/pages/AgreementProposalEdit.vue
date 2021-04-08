@@ -91,51 +91,62 @@
           />
         </q-card-section>
 
-        <q-card-section>
-          <values :values="agreement.values" class="q-mb-lg q-pa-md bg-grey-2"/>
-          <q-field
-            borderless
-            hint="Adding values help people understand why the agreement is important"
-          >
-            <q-btn
-              :label="selectedValues.length > 0 ? 'Edit values' : 'Add values'"
-              unelevated
-              rounded
-              color="green"
-              @click="editValues = true"
-            />
-          </q-field>
-
-          <custom-dialog v-model="editValues">
-            <template #message>
-              <div
-                v-for="category in valueCategoryDefinitions"
-                :key="category.name"
-              >
-                <div class="text-h4 q-my-md q-ml-md">{{ category.name }}</div>
-                <q-btn
-                  v-for="value in valuesForCategory(category.name)"
-                  :key="value.name"
-                  :label="value.name"
-                  unelevated
-                  rounded
-                  @click="toggleValue(value)"
-                  class="q-mr-sm q-mb-sm"
-                  :class="selectedValues.includes(value) ? 'bg-green text-white' : ''"
-                />
-              </div>
-            </template>
-            <template #actions>
-              <QBtn
-                v-close-popup
-                flat
-                color="primary"
-                label="Done"
-              />
-            </template>
-
-          </custom-dialog>
+        <q-card-section v-if="selectedValues.length === 0">
+          <q-banner class="bg-orange-1 q-pa-md q-mb-md">
+            Add the values you are trying to encourage to help people to understand why the agreement is important.
+          </q-banner>
+          <q-btn
+            label="Add values"
+            unelevated
+            rounded
+            color="green"
+            @click="editValues = true"
+          />
         </q-card-section>
+        <q-card-section v-else>
+          <values :values="agreement.values" class="q-mb-lg q-pa-md bg-grey-2"/>
+          <q-btn
+            label="Edit values"
+            unelevated
+            rounded
+            color="green"
+            @click="editValues = true"
+          />
+        </q-card-section>
+
+        <custom-dialog v-model="editValues">
+          <template #message>
+            <div
+              v-for="category in valueCategoryDefinitions"
+              :key="category.name"
+            >
+              <div class="text-h4 q-my-md q-ml-md">
+                <small style="white-space: nowrap">To help support</small>&nbsp;
+                <strong>{{ category.name }}</strong>&nbsp;
+                <small style="white-space: nowrap">we encourage:</small>
+              </div>
+              <q-btn
+                v-for="value in valuesForCategory(category.name)"
+                :key="value.name"
+                :label="value.name"
+                unelevated
+                rounded
+                @click="toggleValue(value)"
+                class="q-mr-sm q-mb-sm"
+                :class="selectedValues.includes(value) ? 'bg-green text-white' : ''"
+              />
+            </div>
+          </template>
+          <template #actions>
+            <QBtn
+              v-close-popup
+              flat
+              color="primary"
+              label="Done"
+            />
+          </template>
+
+        </custom-dialog>
 
         <q-card-section>
           <q-input
