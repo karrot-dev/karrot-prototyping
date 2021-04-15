@@ -36,12 +36,6 @@
                 <q-radio v-model="options.votingControl" val="slider" label="Slider" />
                 <q-radio v-model="options.votingControl" val="text-buttons" label="Text" />
               </div>
-              <q-btn
-                label="Reset prototype data"
-                @click="resetData()"
-                color="red"
-                flat
-              />
             </div>
           </q-menu>
         </q-btn>
@@ -55,30 +49,11 @@
 </template>
 
 <script>
-import { DATA_KEY, initialData } from 'boot/state'
-
 export default {
   name: 'MainLayout',
   data () {
     return {
       options: this.$root.$data.options
-    }
-  },
-  methods: {
-    resetData () {
-      localStorage.removeItem(DATA_KEY)
-      const data = initialData()
-      // because the various components pull out various values within the data
-      // e.g. "group", if we just replace them, the components will still be referring
-      // to the old value, so we go one level down, and mixin the initial values to the
-      // existing objects
-      for (const key of Object.keys(data)) {
-        if (typeof data[key] === 'object') {
-          Object.assign(this.$root.$data[key], data[key])
-        } else {
-          this.$root.$data[key] = data[key]
-        }
-      }
     }
   }
 }
