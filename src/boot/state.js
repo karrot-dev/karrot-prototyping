@@ -1,9 +1,8 @@
 import { date } from 'quasar'
-import massiveDoc from 'pages/massive-doc.md'
 
 const { addToDate, subtractFromDate } = date
 
-const STATE_VERSION = 7 // can bump this to invalidate the data, if you change it a lot
+const STATE_VERSION = 8 // can bump this to invalidate the data, if you change it a lot
 
 export const DATA_KEY = `data:v${STATE_VERSION}`
 
@@ -69,46 +68,44 @@ export function emptyData () {
 export function sampleData () {
   const now = new Date()
   const data = emptyData()
+  const cooperationId = nextId()
   data.group.agreements = [
     // agreed (date is in the past)
 
     {
       id: nextId(),
-      reason: 'We have a lot of people now, so we need clearer guidelines',
-      title: 'Procedures for food pickups',
-      summary: 'Make sure you are nice and polite',
-      content: 'Being polite is very important, there are 35 different aspects to consider, ...',
-      tags: [],
+      reason: '',
+      title: 'Meetings & Decisions',
+      summary: 'How we run our meetings and how decisions are made',
+      content: require('./sample/meetings.md').default,
+      values: ['Transparency', 'Reliability', 'Respect'],
       vote: null,
       messages: [],
-      values: [],
+      date: subtractFromDate(now, { days: 5 }),
+      previousAgreementId: null
+    },
+    {
+      id: cooperationId,
+      reason: '',
+      title: 'Cooperation with companies',
+      summary: 'Guidelines for interacting with companies we co-operate with',
+      content: require('./sample/store-cooperation.md').default,
+      values: ['Local Regulation', 'Transparency', 'Reliability'],
+      vote: null,
+      messages: [],
       date: subtractFromDate(now, { days: 5 }),
       previousAgreementId: null
     },
     {
       id: nextId(),
-      reason: 'We need to tighten up our meetings',
-      title: 'Guidelines for running meetings',
-      summary: 'Announce them early, take minutes, invite all to speak',
-      content: 'It is suggested that you announce the meetings at least 7 days in advance, and publish them at...',
-      tags: [],
+      reason: '',
+      title: 'Money',
+      summary: 'How we deal with money within the group',
+      content: require('./sample/money.md').default,
+      values: ['Legality', 'Equality', 'Free Access'],
       vote: null,
       messages: [],
-      values: [],
-      date: subtractFromDate(now, { days: 12 }),
-      previousAgreementId: null
-    },
-    {
-      id: nextId(),
-      reason: 'See how a big doc is',
-      title: 'Group Agreement',
-      summary: '',
-      content: massiveDoc,
-      tags: [],
-      vote: null,
-      messages: [],
-      values: [],
-      date: subtractFromDate(now, { days: 3 }),
+      date: subtractFromDate(now, { days: 5 }),
       previousAgreementId: null
     },
 
@@ -116,29 +113,16 @@ export function sampleData () {
 
     {
       id: nextId(),
-      reason: 'A reason to change the agreement',
-      title: 'A proposal',
-      summary: 'Summary to proposal 1',
-      content: 'The agreement with some changes 1',
+      reason: 'Added step for more transparency',
+      title: 'Cooperation with companies',
+      summary: 'Guidelines for interacting with companies we co-operate with',
+      content: require('./sample/store-cooperation-proposal.md').default,
       tags: [],
       vote: null,
       messages: [],
       values: [],
       date: addToDate(now, { days: 7 }),
-      previousAgreementId: null
-    },
-    {
-      id: nextId(),
-      reason: 'A reason to change the agreement 2',
-      title: 'Another proposal',
-      summary: 'Summary to proposal 2',
-      content: 'The agreement with some changes 2',
-      tags: [],
-      vote: null,
-      messages: [],
-      values: [],
-      date: addToDate(now, { days: 14 }),
-      previousAgreementId: null
+      previousAgreementId: cooperationId
     }
   ]
   return data
