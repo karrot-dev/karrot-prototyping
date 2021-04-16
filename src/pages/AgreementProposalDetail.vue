@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="flex flex-center" :style="$q.platform.is.mobile ? '' : 'padding-right: 340px;'">
     <div style="width: 100%; max-width: 1000px;">
       <q-card class="q-pa-md">
         <q-banner class="bg-warning text-white q-mb-md">
@@ -213,29 +213,32 @@
           <q-input v-model="message" outlined placeholder="Write a message"/>
         </form>
       </div>
-
-      <portal v-if="!$q.platform.is.mobile" to="layout">
-        <q-drawer
-          side="right"
-          show-if-above
-          elevated
-          overlay
-          :width="400"
-          :breakpoint="500"
-        >
-          <div ref="chat" style="position: absolute; top: 0; bottom: 85px; width: 100%; padding: 16px; overflow-y: auto;">
-            <q-chat-message
-              v-for="(message, index) in agreement.messages"
-              :key="index"
-              :text="[message]"
-            />
-          </div>
-          <form @submit.stop.prevent="sendMessage()" class="full-width absolute-bottom q-pa-md">
-            <q-input v-model="message" outlined placeholder="Write a message"/>
-          </form>
-        </q-drawer>
-      </portal>
     </div>
+    <portal v-if="!$q.platform.is.mobile" to="layout">
+      <q-drawer
+        side="right"
+        bordered
+        behavior="desktop"
+        show-if-above
+        overlay
+        :width="340"
+        :breakpoint="500"
+      >
+        <q-banner class="bg-grey-14 text-white">
+          Discussion
+        </q-banner>
+        <div ref="chat" style="position: absolute; top: 50px; bottom: 85px; width: 100%; padding: 16px; overflow-y: auto;">
+          <q-chat-message
+            v-for="(message, index) in agreement.messages"
+            :key="index"
+            :text="[message]"
+          />
+        </div>
+        <form @submit.stop.prevent="sendMessage()" class="full-width absolute-bottom q-pa-md">
+          <q-input v-model="message" outlined placeholder="Write a message"/>
+        </form>
+      </q-drawer>
+    </portal>
   </q-page>
 </template>
 
@@ -247,6 +250,7 @@ import Agreement from 'components/Agreement'
 
 export default {
   components: {
+    // eslint-disable-next-line vue/no-unused-components
     Agreement
   },
   data () {

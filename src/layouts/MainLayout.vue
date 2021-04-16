@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf" class="main">
-    <q-header elevated>
+  <q-layout view="hHh lpr lFf" class="main">
+    <q-header bordered>
       <q-toolbar>
         <q-space/>
         <q-tabs
@@ -14,12 +14,6 @@
           <q-route-tab
             label="Agreements"
             to="/agreements"
-            exact
-          />
-          <q-route-tab
-            label="Proposals"
-            to="/proposals"
-            exact
           />
         </q-tabs>
         <q-space/>
