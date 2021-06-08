@@ -68,7 +68,7 @@
           </q-input>
         </q-card-section>
 
-        <q-card-section>
+        <q-card-section v-if="!isNew">
           <q-input
             v-model="agreement.reason"
             label="Reason for proposal"
