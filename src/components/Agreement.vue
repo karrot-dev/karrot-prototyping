@@ -3,10 +3,12 @@
     <div class="text-caption text-uppercase">Title</div>
     <div class="text-h6 q-mb-lg">{{ agreement.title }}</div>
 
+    <!--
     <template v-if="agreement.values.length > 0">
       <div class="text-caption text-uppercase">Values</div>
       <values :values="agreement.values" class="q-mb-lg"/>
     </template>
+    -->
 
     <template v-if="agreement.summary">
       <div class="text-caption text-uppercase q-mb-sm">Summary</div>
@@ -26,12 +28,7 @@
 </template>
 
 <script>
-import Values from 'components/Values'
-
 export default {
-  components: {
-    Values
-  },
   props: {
     agreement: {
       type: Object,

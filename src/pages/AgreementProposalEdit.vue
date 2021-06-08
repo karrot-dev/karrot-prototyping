@@ -91,6 +91,7 @@
           />
         </q-card-section>
 
+        <!--
         <q-card-section v-if="selectedValues.length === 0">
           <q-banner class="bg-orange-1 q-pa-md q-mb-md">
             Add the values you are trying to encourage to help people to understand why the agreement is important.
@@ -147,6 +148,7 @@
           </template>
 
         </custom-dialog>
+        -->
 
         <q-card-section>
           <q-input
