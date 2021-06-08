@@ -205,17 +205,16 @@
               input-style="min-height: 200px; max-height: 600px;"
             />
           </q-card-section>
-
-          <q-card-section class="q-pa-sm">
-            <q-btn
-              class="q-mr-md"
-              :label="isNew ? 'Create proposal' : 'Save'"
-              color="primary"
-              @click="save()"
-            />
-          </q-card-section>
-
         </template>
+
+        <q-card-section class="q-pa-sm">
+          <q-btn
+            class="q-mr-md"
+            :label="isNew ? 'Create proposal' : 'Save'"
+            color="primary"
+            @click="save()"
+          />
+        </q-card-section>
       </q-card>
     </div>
   </q-page>

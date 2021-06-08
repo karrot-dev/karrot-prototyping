@@ -21,171 +21,206 @@
           <q-markdown :src="agreement.reason" />
         </q-card-section>
 
-        <q-card-section>
-          <div class="text-h6 q-mb-md">The proposal</div>
-          <div
-            class="bg-grey-2 limit-height q-pa-md"
-            ref="content"
-            :class="{ 'content-overflow': contentOverflow }"
-          >
-            <agreement :agreement="agreement"/>
-          </div>
-          <q-btn
-            v-if="contentOverflow"
-            class="full-width"
-            outline
-            label="Open full proposal"
-            @click="openFull()"
-          />
+        <q-card-section v-if="!hasChanged">
+          <q-banner class="bg-green-1 q-pa-md q-mt-md q-mb-lg">
+            <template #avatar>
+              <q-icon name="fas fa-edit" color="primary" />
+            </template>
+            No changes have been proposed yet, so there is nothing to vote on.
+            <template #action>
+              <q-btn
+                label="Propose changes"
+                color="primary"
+                :to="`/proposals/${id}/edit`"
+              />
+            </template>
+          </q-banner>
 
-          <div class="q-mt-md q-gutter-md">
-            <q-btn
-              label="Edit proposal"
-              color="primary"
-              :to="`/proposals/${id}/edit`"
-            />
-            <q-btn
-              v-if="previousAgreement"
-              label="Show changes to existing agreement"
-              color="primary"
-              @click="showChanges()"
-            />
-            <q-btn
-              v-if="$q.platform.is.mobile"
-              label="Open discussion"
-              color="primary"
-              @click="showMobileChat = true"
-            />
-          </div>
+          <q-banner class="bg-orange-1 q-pa-md q-mt-md" v-if="!hasWrittenInChat">
+            <template #avatar>
+              <q-icon name="fas fa-comments" color="primary" />
+            </template>
+            Please consider participating in the discussion by writing in the chat.
+            <br class="q-mb-sm">
+            This helps people to include your perspective in the proposal.
+            <template #action v-if="$q.platform.is.mobile">
+              <q-btn
+                label="Open discussion"
+                color="primary"
+                @click="showMobileChat = true"
+              />
+            </template>
+          </q-banner>
         </q-card-section>
 
-        <q-card-section>
-          <div class="text-h6 q-mb-md">What do you think about this proposal?</div>
-          <div class="row q-my-lg" v-if="options.votingControl === 'text-buttons'">
-            <template v-if="$q.platform.is.mobile">
-              <q-select
-                class="col-grow"
-                label="Vote"
-                outlined
-                v-model="agreement.vote"
-                :options="[
-                  { label: getLabel(-2), value: -2, disable: disableNegativeVote },
-                  { label: getLabel(-1), value: -1, disable: disableNegativeVote },
-                  { label: getLabel(0), value: 0 },
-                  { label: getLabel(1), value: 1 },
-                  { label: getLabel(2), value: 2 },
-                ].reverse()"
-              >
-                <template #append>
+        <template v-if="hasChanged">
+
+          <q-card-section>
+            <div class="text-h6 q-mb-md">The proposal</div>
+            <div
+              class="bg-grey-2 limit-height q-pa-md"
+              ref="content"
+              :class="{ 'content-overflow': contentOverflow }"
+            >
+              <agreement :agreement="agreement"/>
+            </div>
+            <q-btn
+              v-if="contentOverflow"
+              class="full-width"
+              outline
+              label="Open full proposal"
+              @click="openFull()"
+            />
+
+            <div class="q-mt-md q-gutter-md">
+              <q-btn
+                label="Edit proposal"
+                color="primary"
+                :to="`/proposals/${id}/edit`"
+              />
+              <q-btn
+                v-if="previousAgreement"
+                label="Show changes to existing agreement"
+                color="primary"
+                @click="showChanges()"
+              />
+              <q-btn
+                v-if="$q.platform.is.mobile"
+                label="Open discussion"
+                color="primary"
+                @click="showMobileChat = true"
+              />
+            </div>
+          </q-card-section>
+
+          <q-card-section>
+            <div class="text-h6 q-mb-md">What do you think about this proposal?</div>
+            <div class="row q-my-lg" v-if="options.votingControl === 'text-buttons'">
+              <template v-if="$q.platform.is.mobile">
+                <q-select
+                  class="col-grow"
+                  label="Vote"
+                  outlined
+                  v-model="agreement.vote"
+                  :options="[
+                    { label: getLabel(-2), value: -2, disable: disableNegativeVote },
+                    { label: getLabel(-1), value: -1, disable: disableNegativeVote },
+                    { label: getLabel(0), value: 0 },
+                    { label: getLabel(1), value: 1 },
+                    { label: getLabel(2), value: 2 },
+                  ].reverse()"
+                >
+                  <template #append>
+                    <q-btn
+                      :disable="agreement.vote === null"
+                      @click.stop="agreement.vote = null"
+                      icon="fas fa-times"
+                      title="Clear vote"
+                      :color="agreement.vote === null ? 'grey' : 'red'"
+                      size="sm"
+                      flat
+                    />
+                  </template>
+                </q-select>
+              </template>
+              <template v-else>
+                <q-space/>
+                <q-btn-toggle
+                  unelevated
+                  v-model="agreement.vote"
+                  :options="[
+                    { label: getLabel(-2), value: -2, disable: disableNegativeVote },
+                    { label: getLabel(-1), value: -1, disable: disableNegativeVote },
+                    { label: getLabel(0), value: 0 },
+                    { label: getLabel(1), value: 1 },
+                    { label: getLabel(2), value: 2 },
+                  ]"
+                >
                   <q-btn
                     :disable="agreement.vote === null"
-                    @click.stop="agreement.vote = null"
+                    @click="agreement.vote = null"
                     icon="fas fa-times"
                     title="Clear vote"
                     :color="agreement.vote === null ? 'grey' : 'red'"
                     size="sm"
                     flat
                   />
-                </template>
-              </q-select>
-            </template>
-            <template v-else>
+                </q-btn-toggle>
+                <q-space/>
+              </template>
+            </div>
+
+            <div class="row" v-if="options.votingControl === 'slider'">
+              <q-slider
+                class="col-grow"
+                v-model="agreement.vote"
+                color="green"
+                :min="-2"
+                :step="1"
+                :max="2"
+                snap
+                markers
+                :label="agreement.vote !== null"
+                :label-always="agreement.vote !== null"
+                :label-value="getLabel(agreement.vote)"
+              />
+              <q-btn
+                :disable="agreement.vote === null"
+                @click="agreement.vote = null"
+                icon="fas fa-times"
+                title="Clear vote"
+                :color="agreement.vote === null ? 'grey' : 'red'"
+                size="sm"
+                flat
+              />
+            </div>
+
+            <div class="row" v-if="options.votingControl === 'faces'">
               <q-space/>
               <q-btn-toggle
-                unelevated
                 v-model="agreement.vote"
+                toggle-color="primary"
+                rounded
+                unelevated
+                size="xl"
                 :options="[
-                  { label: getLabel(-2), value: -2, disable: disableNegativeVote },
-                  { label: getLabel(-1), value: -1, disable: disableNegativeVote },
-                  { label: getLabel(0), value: 0 },
-                  { label: getLabel(1), value: 1 },
-                  { label: getLabel(2), value: 2 },
-                ]"
-              >
-                <q-btn
-                  :disable="agreement.vote === null"
-                  @click="agreement.vote = null"
-                  icon="fas fa-times"
-                  title="Clear vote"
-                  :color="agreement.vote === null ? 'grey' : 'red'"
-                  size="sm"
-                  flat
-                />
-              </q-btn-toggle>
+                { value: -2, icon: 'far fa-sad-cry', disable: disableNegativeVote },
+                { value: -1, icon: 'far fa-sad-tear', disable: disableNegativeVote },
+                { value: 0, icon: 'far fa-meh' },
+                { value: 1, icon: 'far fa-grin' },
+                { value: 2, icon: 'far fa-grin-hearts' },
+              ]"
+              />
+              <q-btn
+                :disable="agreement.vote === null"
+                @click="agreement.vote = null"
+                icon="fas fa-times"
+                title="Clear vote"
+                :color="agreement.vote === null ? 'grey' : 'red'"
+                size="sm"
+                flat
+              />
               <q-space/>
-            </template>
-          </div>
-
-          <div class="row" v-if="options.votingControl === 'slider'">
-            <q-slider
-              class="col-grow"
-              v-model="agreement.vote"
-              color="green"
-              :min="-2"
-              :step="1"
-              :max="2"
-              snap
-              markers
-              :label="agreement.vote !== null"
-              :label-always="agreement.vote !== null"
-              :label-value="getLabel(agreement.vote)"
-            />
-            <q-btn
-              :disable="agreement.vote === null"
-              @click="agreement.vote = null"
-              icon="fas fa-times"
-              title="Clear vote"
-              :color="agreement.vote === null ? 'grey' : 'red'"
-              size="sm"
-              flat
-            />
-          </div>
-
-          <div class="row" v-if="options.votingControl === 'faces'">
-            <q-space/>
-            <q-btn-toggle
-              v-model="agreement.vote"
-              toggle-color="primary"
-              rounded
-              unelevated
-              size="xl"
-              :options="[
-              { value: -2, icon: 'far fa-sad-cry', disable: disableNegativeVote },
-              { value: -1, icon: 'far fa-sad-tear', disable: disableNegativeVote },
-              { value: 0, icon: 'far fa-meh' },
-              { value: 1, icon: 'far fa-grin' },
-              { value: 2, icon: 'far fa-grin-hearts' },
-            ]"
-            />
-            <q-btn
-              :disable="agreement.vote === null"
-              @click="agreement.vote = null"
-              icon="fas fa-times"
-              title="Clear vote"
-              :color="agreement.vote === null ? 'grey' : 'red'"
-              size="sm"
-              flat
-            />
-            <q-space/>
-          </div>
-          <q-banner class="bg-green-1 q-pa-md q-my-md">
-            <template #avatar>
-              <q-icon name="fas fa-person-booth" color="primary" />
-            </template>
-            Voting is anonymous.
-            <br class="q-mb-sm">
-            If enough people have voted and the score is positive in {{ dueInWords }} then this proposal will be approved!
-          </q-banner>
-          <q-banner class="bg-orange-1 q-pa-md q-mt-md" v-if="disableNegativeVote">
-            <template #avatar>
-              <q-icon name="fas fa-comments" color="primary" />
-            </template>
-            Please consider participating in the discussion by writing in the chat.
-            You cannot vote negatively if you haven't written anything.
-            <br class="q-mb-sm">
-            This helps people to understand your perspective, and possibly change the proposal to include your considerations.
-          </q-banner>
-        </q-card-section>
+            </div>
+            <q-banner class="bg-green-1 q-pa-md q-my-md">
+              <template #avatar>
+                <q-icon name="fas fa-person-booth" color="primary" />
+              </template>
+              Voting is anonymous.
+              <br class="q-mb-sm">
+              If enough people have voted and the score is positive in {{ dueInWords }} then this proposal will be approved!
+            </q-banner>
+            <q-banner class="bg-orange-1 q-pa-md q-mt-md" v-if="!hasWrittenInChat">
+              <template #avatar>
+                <q-icon name="fas fa-comments" color="primary" />
+              </template>
+              Please consider participating in the discussion by writing in the chat.
+              You cannot vote negatively if you haven't written anything.
+              <br class="q-mb-sm">
+              This helps people to include your perspective in the proposal.
+            </q-banner>
+          </q-card-section>
+        </template>
       </q-card>
 
       <div
@@ -327,11 +362,18 @@ export default {
     }
   },
   computed: {
+    hasChanged () {
+      return [
+        'title',
+        'summary',
+        'content'
+      ].some(key => this.agreement[key] !== this.previousAgreement[key])
+    },
     dueInWords () {
       return formatDistance(new Date(), this.agreement.date)
     },
-    disableNegativeVote () {
-      return this.agreement.messages.length === 0
+    hasWrittenInChat () {
+      return this.agreement.messages.length > 0
     }
   }
 }
