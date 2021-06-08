@@ -103,8 +103,8 @@
                   outlined
                   v-model="agreement.vote"
                   :options="[
-                    { label: getLabel(-2), value: -2, disable: disableNegativeVote },
-                    { label: getLabel(-1), value: -1, disable: disableNegativeVote },
+                    { label: getLabel(-2), value: -2, disable: !hasWrittenInChat },
+                    { label: getLabel(-1), value: -1, disable: !hasWrittenInChat },
                     { label: getLabel(0), value: 0 },
                     { label: getLabel(1), value: 1 },
                     { label: getLabel(2), value: 2 },
@@ -129,8 +129,8 @@
                   unelevated
                   v-model="agreement.vote"
                   :options="[
-                    { label: getLabel(-2), value: -2, disable: disableNegativeVote },
-                    { label: getLabel(-1), value: -1, disable: disableNegativeVote },
+                    { label: getLabel(-2), value: -2, disable: !hasWrittenInChat },
+                    { label: getLabel(-1), value: -1, disable: !hasWrittenInChat },
                     { label: getLabel(0), value: 0 },
                     { label: getLabel(1), value: 1 },
                     { label: getLabel(2), value: 2 },
@@ -184,8 +184,8 @@
                 unelevated
                 size="xl"
                 :options="[
-                { value: -2, icon: 'far fa-sad-cry', disable: disableNegativeVote },
-                { value: -1, icon: 'far fa-sad-tear', disable: disableNegativeVote },
+                { value: -2, icon: 'far fa-sad-cry', disable: !hasWrittenInChat },
+                { value: -1, icon: 'far fa-sad-tear', disable: !hasWrittenInChat },
                 { value: 0, icon: 'far fa-meh' },
                 { value: 1, icon: 'far fa-grin' },
                 { value: 2, icon: 'far fa-grin-hearts' },

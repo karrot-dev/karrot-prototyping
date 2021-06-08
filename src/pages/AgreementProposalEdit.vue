@@ -266,10 +266,6 @@ export default {
       dateMask: 'YYYY-MM-DD',
       editValues: false,
       valueCategoryDefinitions,
-      changeOptions: [
-        { label: 'Start the discussion first', value: 'bat' },
-        { label: 'Suggest changes, then start the discussion', value: 'friend', color: 'green' }
-      ],
       changes: 'later'
     }
   },
@@ -293,6 +289,12 @@ export default {
         })
         this.$router.push(`/proposals/${this.id}`)
       } else {
+        if (this.isChangeToExistingAgreement && this.changes === 'later') {
+          // just in case they made changes then selected "later" again
+          for (const key of ['title', 'summary', 'content']) {
+            this.agreement[key] = this.existingAgreement[key]
+          }
+        }
         this.$root.$data.group.agreements.push(this.agreement)
         this.$q.notify({
           message: 'Proposal was created!',
