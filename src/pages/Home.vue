@@ -18,7 +18,7 @@
             <div class="text-h6">Empty data</div>
             <p>This let's you see how it would be when you start using the feature.</p>
             <q-btn
-              label="Reset to empty data"
+              label="Start with empty data"
               @click="resetData('empty')"
               color="primary"
             />
@@ -27,7 +27,7 @@
             <div class="text-h6">With sample agreements and proposals</div>
             <p>This let's you see how it would look like after you've been using it for a while.</p>
             <q-btn
-              label="Reset to sample data"
+              label="Start with sample data"
               @click="resetData('sample')"
               color="primary"
             />
@@ -57,13 +57,8 @@ export default {
           this.$root.$data[key] = data[key]
         }
       }
-      // go back to home page, as our current page might be invalid, or the data might
-      // not actually update properly... just being safe/simple
-      this.$router.push('/')
-      this.$q.notify({
-        message: `Reset data to ${scenario}`,
-        color: 'pink'
-      })
+      // head over to the agreements page to get started!
+      this.$router.push('/agreements')
     }
   }
 }
