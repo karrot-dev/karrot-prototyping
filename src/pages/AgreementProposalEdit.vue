@@ -75,7 +75,7 @@
             hint="Why are making this proposal? Is it a response to something that happened? What are hoping it will achieve?"
             outlined
             autogrow
-            input-style="min-height: 100px;"
+            input-style="min-height: 65px;"
           />
         </q-card-section>
 
@@ -156,7 +156,7 @@
             label="Summary (optional)"
             outlined
             autogrow
-            input-style="min-height: 100px; max-height: 600px;"
+            input-style="min-height: 65px; max-height: 600px;"
           />
         </q-card-section>
 
