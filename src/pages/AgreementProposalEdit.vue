@@ -68,10 +68,10 @@
           </q-input>
         </q-card-section>
 
-        <q-card-section v-if="!isNew">
+        <q-card-section>
           <q-input
             v-model="agreement.reason"
-            label="Reason for proposal"
+            label="Reason for proposal (optional)"
             hint="Why are making this proposal? Is it a response to something that happened? What are hoping it will achieve?"
             outlined
             autogrow
@@ -153,7 +153,7 @@
         <q-card-section>
           <q-input
             v-model="agreement.summary"
-            label="Summary"
+            label="Summary (optional)"
             outlined
             autogrow
             input-style="min-height: 100px; max-height: 600px;"
