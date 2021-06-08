@@ -4,8 +4,11 @@
       <div class="text-h4">Agreements</div>
 
       <q-tabs v-model="tab">
-        <q-route-tab name="approved" to="/agreements/approved">Approved</q-route-tab>
-        <q-route-tab name="proposed" to="/agreements/proposed">Proposals</q-route-tab>
+        <q-route-tab name="proposed" to="/agreements/proposed" label="Proposals">
+          <q-badge color="blue" floating v-if="proposals.length > 0">{{ proposals.length }}</q-badge>
+        </q-route-tab>
+        <q-route-tab name="approved" to="/agreements/approved" label="Approved">
+        </q-route-tab>
         <q-btn class="absolute-right" to="/proposals/new" color="primary">Propose new agreement</q-btn>
       </q-tabs>
 

@@ -363,6 +363,7 @@ export default {
   },
   computed: {
     hasChanged () {
+      if (!this.previousAgreement) return true
       return [
         'title',
         'summary',
