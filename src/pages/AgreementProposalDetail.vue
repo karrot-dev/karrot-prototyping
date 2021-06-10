@@ -29,6 +29,11 @@
             No changes have been proposed yet, so there is nothing to vote on.
             <template #action>
               <q-btn
+                label="Open discussion"
+                color="primary"
+                @click="showMobileChat = true"
+              />
+              <q-btn
                 label="Propose changes"
                 color="primary"
                 :to="`/proposals/${id}/edit`"
@@ -43,13 +48,6 @@
             Please consider participating in the discussion by writing in the chat.
             <br class="q-mb-sm">
             This helps people to include your perspective in the proposal.
-            <template #action v-if="$q.platform.is.mobile">
-              <q-btn
-                label="Open discussion"
-                color="primary"
-                @click="showMobileChat = true"
-              />
-            </template>
           </q-banner>
         </q-card-section>
 
