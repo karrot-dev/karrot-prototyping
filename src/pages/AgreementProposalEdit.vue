@@ -210,7 +210,7 @@
         <q-card-section class="q-pa-sm">
           <q-btn
             class="q-mr-md"
-            :label="isNew ? 'Create proposal' : 'Save'"
+            :label="isNew ? (changes === 'later' ? 'Start discussion' : 'Create proposal') : 'Save'"
             color="primary"
             @click="save()"
           />
