@@ -29,6 +29,7 @@
             No changes have been proposed yet, so there is nothing to vote on.
             <template #action>
               <q-btn
+                v-if="$q.platform.is.mobile"
                 label="Open discussion"
                 color="primary"
                 @click="showMobileChat = true"
